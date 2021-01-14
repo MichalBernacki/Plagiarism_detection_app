@@ -19,7 +19,6 @@ signals:
     void error();
     void opened();
     void mustChoose();
-    void choose();
     void choosed();
 
 public slots:

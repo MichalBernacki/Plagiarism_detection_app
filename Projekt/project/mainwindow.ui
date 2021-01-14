@@ -169,14 +169,14 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QCheckBox" name="chBox1">
+         <widget class="QCheckBox" name="cbBox1">
           <property name="text">
            <string>Method I</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="chBox2">
+         <widget class="QCheckBox" name="cbBox2">
           <property name="text">
            <string>Method II</string>
           </property>
