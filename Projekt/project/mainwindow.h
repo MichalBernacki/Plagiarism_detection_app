@@ -18,11 +18,16 @@ public:
 signals:
     void error();
     void opened();
-    void saved();
+    void mustChoose();
+    void choose();
+    void choosed();
 
 public slots:
     void open();
-    void save();
+    void checkChoose();
+    void errorOpen();
+    void errorCompare();
+    void compare();
 
 private:
     Ui::MainWindow *ui;
