@@ -6,7 +6,7 @@
     Open -right-> View : <b>this</b> opened()
     Open -down-> ErrorOpen : <b>this</b> error()
     View -left-> Open : <b>pbOpen</b> clicked(bool)
-    View -right-> Choose : <b>this</b> choose()
+    View -right-> Choose : <b>pbStart</b> clicked(bool)
     Choose -left-> View : <b>this</b> mustChoose()
     Choose -right-> Compare : <b>this</b> choosed()
     Compare -down-> ErrorCompare : <b>this</b> error()
@@ -58,6 +58,7 @@
     View: <b>cbBox2</b> enabled <b>true</b>
     View: <b>teText1</b> enabled <b>true</b>
     View: <b>teText2</b> enabled <b>true</b>
+    
 
     Compare: <b>state</b> entered() -> <b>this</b> compare()
 
@@ -67,7 +68,6 @@
     ErrorOpen: <b>pbStart</b> enabled <b>false</b>
     ErrorOpen: <b>cbBox1</b> enabled <b>false</b>
     ErrorOpen: <b>cbBox2</b> enabled <b>false</b>
-    ErrorOpen: <b>messageBox</b> -> <b>show()</b>
     ErrorOpen: <b>state</b> entered() -> <b>this</b> errorOpen()
     
 
