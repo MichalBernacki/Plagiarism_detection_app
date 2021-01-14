@@ -2,15 +2,15 @@
 
     [*] -down-> Startup
     Startup -down-> Open : <b>pbOpen</b> clicked(bool)
-    Error -up-> Open : <b>pbOpen</b> clicked(bool)
+    ErrorOpen -up-> Open : <b>pbOpen</b> clicked(bool)
     Open -right-> View : <b>this</b> opened()
-    Open -down-> Error : <b>this</b> error()
+    Open -down-> ErrorOpen : <b>this</b> error()
     View -left-> Open : <b>pbOpen</b> clicked(bool)
     View -right-> Choose : <b>this</b> choose()
     Choose -left-> View : <b>this</b> mustChoose()
     Choose -right-> Compare : <b>this</b> choosed()
-    Compare -down-> Error2 : <b>this</b> error()
-    Error2 -up-> Open: <b>pbOpen</b> clicked(bool)
+    Compare -down-> ErrorCompare : <b>this</b> error()
+    ErrorCompare -up-> Open: <b>pbOpen</b> clicked(bool)
 
     note top of Startup
     - we probably will have more chooseBox than 2
@@ -33,11 +33,11 @@
     - selected file name is used
     end note
 
-    note bottom of Error
+    note bottom of ErrorOpen
     - show <b>QMessageBox</b> and go back to <b>Open</b> state
     end note
 
-    note bottom of Error2
+    note bottom of ErrorCompare
     - show <b>QMessageBox</b> and go back to <b>Open</b> state
     end note
 
@@ -61,18 +61,20 @@
 
     Compare: <b>state</b> entered() -> <b>this</b> compare()
 
-    Choose: <b>messageBox3</b> -> <b>show()</b>
+    Choose: <b>state</b> entered() -> <b>this</b> checkChoose()
 
-    Error: <b>pbOpen</b> enabled <b>true</b>
-    Error: <b>pbStart</b> enabled <b>false</b>
-    Error: <b>cbBox1</b> enabled <b>false</b>
-    Error: <b>cbBox2</b> enabled <b>false</b>
-    Error: <b>messageBox</b> -> <b>show()</b>
+    ErrorOpen: <b>pbOpen</b> enabled <b>true</b>
+    ErrorOpen: <b>pbStart</b> enabled <b>false</b>
+    ErrorOpen: <b>cbBox1</b> enabled <b>false</b>
+    ErrorOpen: <b>cbBox2</b> enabled <b>false</b>
+    ErrorOpen: <b>messageBox</b> -> <b>show()</b>
+    ErrorOpen: <b>state</b> entered() -> <b>this</b> errorOpen()
+    
 
-    Error2: <b>pbOpen</b> enabled <b>true</b>
-    Error2: <b>pbStart</b> enabled <b>false</b>
-    Error2: <b>cbBox1</b> enabled <b>false</b>
-    Error2: <b>cbBox2</b> enabled <b>false</b>
-    Error2: <b>messageBox2</b> -> <b>show()</b>
+    ErrorCompare: <b>pbOpen</b> enabled <b>true</b>
+    ErrorCompare: <b>pbStart</b> enabled <b>false</b>
+    ErrorCompare: <b>cbBox1</b> enabled <b>false</b>
+    ErrorCompare: <b>cbBox2</b> enabled <b>false</b>
+    ErrorCompare: <b>state</b> entered() -> <b>this</b> errorCompare()
 
 @enduml
