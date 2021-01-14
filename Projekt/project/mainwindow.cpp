@@ -14,80 +14,78 @@ MainWindow::MainWindow(QWidget *parent) :
 
     auto stateMachine = new QStateMachine{this};
 
-    //Locked state
-    auto stateUnLocked = new QState(stateMachine);
-    stateUnLocked->assignProperty(ui->pbToggle, "text", "Lock");
-    stateUnLocked->assignProperty(ui->pbOpen, "enabled", true);
-    stateUnLocked->assignProperty(ui->pbSave, "enabled", true);
-    stateUnLocked->assignProperty(ui->teText, "enabled", true);
+    //ALL STATES
+    auto stateStartup = new QState(stateMachine);
+    auto stateOpen = new QState{stateMachine};
+    auto stateErrorOpen = new QState{stateMachine};
+    auto stateErrorCompare = new QState{stateMachine};
+    auto stateView = new QState{stateMachine};
+    auto stateChoose = new QState{stateMachine};
+    auto stateCompare = new QState{stateMachine};
 
-    //Lock State
-    auto stateLocked = new QState(stateMachine);
-    stateLocked->assignProperty(ui->pbToggle, "text", "Unlock");
-    stateLocked->assignProperty(ui->pbOpen, "enabled", false);
-    stateLocked->assignProperty(ui->pbSave, "enabled", false);
-    stateLocked->assignProperty(ui->teText, "enabled", false);
-
-    //Startup State
-    auto stateStartup = new QState{stateUnLocked};
+    //STARTUP
     stateStartup->assignProperty(ui->pbOpen, "enabled", true);
-    stateStartup->assignProperty(ui->pbSave, "enabled", false);
-    stateStartup->assignProperty(ui->teText, "enabled", false);
-    stateStartup->assignProperty(ui->teText, "placeholderText", "Open file to start editing...");
+    stateStartup->assignProperty(ui->pbStart, "enabled", false);
+    stateStartup->assignProperty(ui->teText1, "enabled", false);
+    stateStartup->assignProperty(ui->teText1, "placeholderText", "Load files to start...");
+    stateStartup->assignProperty(ui->teText2, "enabled", false);
+    stateStartup->assignProperty(ui->teText2, "placeholderText", "Load files to start...");
+    stateStartup->assignProperty(ui->cbBox1, "enabled", false);
+    stateStartup->assignProperty(ui->cbBox2, "enabled", false);
 
-    auto stateOpen = new QState{stateUnLocked};
-
-    //Error State
-    auto stateError = new QState{stateUnLocked};
-    stateError->assignProperty(ui->pbOpen, "enabled", true);
-    stateError->assignProperty(ui->pbSave, "enabled", false);
-    stateError->assignProperty(ui->teText, "enabled", false);
-    stateError->assignProperty(ui->teText, "placeholderText", "Error ocured. Open file to start editing...");
-
-    //View State
-    auto stateView = new QState{stateUnLocked};
-    stateView->assignProperty(ui->pbOpen, "enabled", true);
-    stateView->assignProperty(ui->pbSave, "enabled", false);
-    stateView->assignProperty(ui->teText, "enabled", true);
-
-    //Edit State
-    auto stateEdit = new QState{stateUnLocked};
-    stateEdit->assignProperty(ui->pbOpen, "enabled", false);
-    stateEdit->assignProperty(ui->pbSave, "enabled", true);
-    stateEdit->assignProperty(ui->teText, "enabled", true);
-
-    auto stateSave = new QState{stateUnLocked};
-
-    QHistoryState *stateHistory = new QHistoryState(stateUnLocked);
-    stateHistory->setDefaultState(stateStartup);
-
-    //Transation for lock and unlock
-    stateUnLocked->addTransition(ui->pbToggle, SIGNAL(clicked()), stateLocked);
-    stateLocked->addTransition(ui->pbToggle, SIGNAL(clicked()), stateHistory);
-
-
-    //Simple transition
     stateStartup->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
-    stateError->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
-    stateView->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
-    stateView->addTransition(ui->teText, SIGNAL(textChanged()), stateEdit);
-    stateEdit->addTransition(ui->pbSave, SIGNAL(clicked()), stateSave);
 
 
-    //Open transition
+    //OPEN
     connect(stateOpen, SIGNAL(entered()), this, SLOT(open()));
+    stateOpen->addTransition(this, SIGNAL(error()), stateErrorOpen);
     stateOpen->addTransition(this, SIGNAL(opened()), stateView);
-    stateOpen->addTransition(this, SIGNAL(error()), stateError);
-
-    //Save transition
-    connect(stateSave, SIGNAL(entered()), this, SLOT(save()));
-    stateSave->addTransition(this, SIGNAL(saved()), stateView);
-    stateSave->addTransition(this, SIGNAL(error()), stateError);
 
 
-    //Init state machine
-    stateUnLocked->setInitialState(stateStartup);
-    stateMachine->setInitialState(stateUnLocked);
+    //ERROR OPEN
+    stateErrorOpen->assignProperty(ui->pbOpen, "enabled", true);
+    stateErrorOpen->assignProperty(ui->pbStart, "enabled", false);
+    stateErrorOpen->assignProperty(ui->cbBox1, "enabled", false);
+    stateErrorOpen->assignProperty(ui->cbBox2, "enabled", false);
+
+    connect(stateErrorOpen, SIGNAL(entered()), this, SLOT(errorOpen()));
+    stateErrorOpen->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
+
+
+    //ERROR COMPARE
+    stateErrorCompare->assignProperty(ui->pbOpen, "enabled", true);
+    stateErrorCompare->assignProperty(ui->pbStart, "enabled", false);
+    stateErrorCompare->assignProperty(ui->cbBox1, "enabled", false);
+    stateErrorCompare->assignProperty(ui->cbBox2, "enabled", false);
+
+    connect(stateErrorCompare, SIGNAL(entered()), this, SLOT(errorCompare()));
+    stateErrorCompare->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
+
+
+    //VIEW
+    stateView->assignProperty(ui->pbOpen, "enabled", true);
+    stateView->assignProperty(ui->pbStart, "enabled", true);
+    stateView->assignProperty(ui->cbBox1, "enabled", true);
+    stateView->assignProperty(ui->cbBox2, "enabled", true);
+    stateView->assignProperty(ui->teText1, "enabled", true);
+    stateView->assignProperty(ui->teText2, "enabled", true);
+
+    stateView->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
+    stateView->addTransition(ui->pbStart, SIGNAL(clicked()), stateChoose);
+
+
+    //CHOOSE
+    connect(stateChoose, SIGNAL(entered()), this, SLOT(checkChoose()));
+    stateChoose->addTransition(this, SIGNAL(mustChoose()), stateView);
+    stateChoose->addTransition(this, SIGNAL(choosed()), stateView);
+
+
+    //COMPARE
+    connect(stateCompare, SIGNAL(entered()), this, SLOT(compare()));
+    stateCompare->addTransition(this, SIGNAL(error()), stateErrorCompare);
+    //TODO: Zdefiniowac akcje jak porowna poprawnie, nie wiem gdzie sie definiuje otwarcie nowego okna
+
+    stateMachine->setInitialState(stateStartup);
     stateMachine->start();
 }
 
@@ -96,40 +94,33 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::open()
-{
-    fileName = QFileDialog::getOpenFileName(this, "open a file", QDir::currentPath());
-    QFile file(fileName);
-
-    if( !file.open(QFile::ReadOnly | QFile::Text)){
-        ui->teText->setPlainText("");
-        emit error();
-        return;
-    }
-
-    QTextStream in(&file);
-    QString text = in.readAll();
-    ui->teText->setPlainText(text);
-    file.close();
-
+void MainWindow::open(){
+    emit error();
     emit opened();
+    //TODO: Otwieranie katalogu
+    //TODO: Otwieranie katalogu drugiego
+    //TODO: Wyswietlenie plikow w oknach
+    //TODO: Zapisanie sciezek, albo jakiej "tablicy" z nazwami plikow
 }
 
-void MainWindow::save()
-{
-    QFile file(fileName);
-
-    if( !file.open(QFile::WriteOnly | QFile::Text)){
-        ui->teText->setPlainText("");
-        emit error();
-        return;
-    }
-
-    QTextStream out(&file);
-    QString text = ui->teText->toPlainText();
-    out << text;
-    file.flush();
-    file.close();
-
-    emit saved();
+void MainWindow::checkChoose(){
+    emit mustChoose();
+    emit choosed();
+    //TODO: Wyswietlic messagebox z informacja, ze trzeba wybrac algorytm jak nie jest nic zatikowane
 }
+
+void MainWindow::errorOpen(){
+    //QMessageBOX
+    //TODO: Wyswietlic MessageBox co poszlo nie tak z otwieraniem katalogu i plikow w nim
+}
+
+void MainWindow::errorCompare(){
+    //QMessageBOX
+    //TODO: Wyswietlic MessageBox co poszlo nie tak z porownaniem
+}
+
+void MainWindow::compare(){
+    emit error();
+    //TODO: Porownywanie i otwieranie nowego okna z wynikami, jest cos jakiego jak tableView w QT
+}
+
