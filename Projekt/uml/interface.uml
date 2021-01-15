@@ -2,25 +2,26 @@
 
     [*] -down-> Startup
     Startup -down-> Open : <b>pbOpen</b> clicked(bool)
-    ErrorOpen -up-> Open : <b>pbOpen</b> clicked(bool)
+    Error -up-> Open : <b>pbOpen</b> clicked(bool)
     Open -right-> View : <b>this</b> opened()
-    Open -down-> ErrorOpen : <b>this</b> error()
+    Open -down-> Error : <b>this</b> error("open")
     View -left-> Open : <b>pbOpen</b> clicked(bool)
     View -right-> Choose : <b>pbStart</b> clicked(bool)
+    Compare -left-> Choose : <b>pbStart</b> clicked(bool)
+    Compare -left-> Open : <b>pbOpen</b> clicked(bool)
     Choose -left-> View : <b>this</b> mustChoose()
     Choose -right-> Compare : <b>this</b> choosed()
-    Compare -down-> ErrorCompare : <b>this</b> error()
-    ErrorCompare -up-> Open: <b>pbOpen</b> clicked(bool)
+    Compare -down-> Error : <b>this</b> error("compare")
 
     note top of Startup
     - we probably will have more chooseBox than 2
     end note
 
     note top of Open 
-    - displays <b>two</b> file dialogs one by one
-    - choose directories
-    - sets obtained files path into the <b>teText1</b> and <b>teText2</b>
-    - stores selected directories in variables
+    - open dialog for load directory
+    - load directory
+    - first level subdirectories should be separate projects
+    - should store path in some variable
     end note
 
     note top of Choose 
@@ -33,48 +34,39 @@
     - selected file name is used
     end note
 
-    note bottom of ErrorOpen
+    note bottom of Error
     - show <b>QMessageBox</b> and go back to <b>Open</b> state
     end note
 
-    note bottom of ErrorCompare
-    - show <b>QMessageBox</b> and go back to <b>Open</b> state
-    end note
 
     Startup: <b>pbOpen</b> enabled <b>true</b>
     Startup: <b>pbStart</b> enabled <b>false</b>
-    Startup: <b>teText1</b> enabled <b>false</b>
-    Startup: <b>teText2</b> enabled <b>false</b>
+    Startup: <b>taCompare</b> enabled <b>false</b>
     Startup: <b>cbBox1</b> enabled <b>false</b>
     Startup: <b>cbBox2</b> enabled <b>false</b>
-    Startup: <b>teText1</b> placeholderText <b>Load files to start...</b>
-    Startup: <b>teText2</b> placeholderText <b>Load files to start...</b>
+    Startup: <b>leLabel</b> text <b>Load directory to start...</b>
+   
 
     Open: <b>state</b> entered() -> <b>this</b> open()
 
     View: <b>pbOpen</b> enabled <b>true</b>
     View: <b>pbStart</b> enabled <b>true</b>
+    View: <b>taCompare</b> enabled <b>false</b>
     View: <b>cbBox1</b> enabled <b>true</b>
     View: <b>cbBox2</b> enabled <b>true</b>
-    View: <b>teText1</b> enabled <b>true</b>
-    View: <b>teText2</b> enabled <b>true</b>
     
 
+    Compare: <b>taCompare</b> enabled <b>true</b>
     Compare: <b>state</b> entered() -> <b>this</b> compare()
 
     Choose: <b>state</b> entered() -> <b>this</b> checkChoose()
 
-    ErrorOpen: <b>pbOpen</b> enabled <b>true</b>
-    ErrorOpen: <b>pbStart</b> enabled <b>false</b>
-    ErrorOpen: <b>cbBox1</b> enabled <b>false</b>
-    ErrorOpen: <b>cbBox2</b> enabled <b>false</b>
-    ErrorOpen: <b>state</b> entered() -> <b>this</b> errorOpen()
-    
-
-    ErrorCompare: <b>pbOpen</b> enabled <b>true</b>
-    ErrorCompare: <b>pbStart</b> enabled <b>false</b>
-    ErrorCompare: <b>cbBox1</b> enabled <b>false</b>
-    ErrorCompare: <b>cbBox2</b> enabled <b>false</b>
-    ErrorCompare: <b>state</b> entered() -> <b>this</b> errorCompare()
+    Error: <b>pbOpen</b> enabled <b>true</b>
+    Error: <b>pbStart</b> enabled <b>false</b>
+    Error: <b>cbBox1</b> enabled <b>false</b>
+    Error: <b>cbBox2</b> enabled <b>false</b>
+    Error: <b>taCompare</b> enabled <b>false</b>
+    Error: <b>state</b> entered() -> <b>this</b> errorOpen()
+       
 
 @enduml
