@@ -35,8 +35,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     //OPEN
-    //connect(stateOpen, SIGNAL(entered()), this, SLOT(open())); -> na czas testu generowania tablic !
-    connect(stateOpen, SIGNAL(entered()), this, SLOT(view()));
+    //connect(stateOpen, SIGNAL(entered()), this, SLOT(open()));
+    connect(stateOpen, SIGNAL(entered()), this, SLOT(view()));//-> na czas testu generowania tablic !
     stateOpen->addTransition(this, SIGNAL(error(QString)), stateError);
     stateOpen->addTransition(this, SIGNAL(opened()), stateView);
 
@@ -121,6 +121,7 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::view()
 {
     this->projectCount = 5;
+
     ui->taCompare->clear();
     ui->taCompare->setRowCount(projectCount);
     ui->taCompare->setColumnCount(projectCount);
@@ -132,3 +133,4 @@ void MainWindow::view()
               ui->taCompare->setItem( r, c, new QTableWidgetItem("123456"));
     }
 }
+

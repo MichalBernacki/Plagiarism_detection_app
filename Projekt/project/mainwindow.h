@@ -28,7 +28,6 @@ public slots:
     void errorFunction();
     void compare();
     void view();
-
 private slots:
     void on_pushButton_clicked();
 

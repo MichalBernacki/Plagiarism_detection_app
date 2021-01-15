@@ -15,6 +15,9 @@ public:
     explicit NxNDialog(QWidget *parent = nullptr);
     ~NxNDialog();
 
+private slots:
+
+
 private:
     Ui::NxNDialog *ui;
 };
