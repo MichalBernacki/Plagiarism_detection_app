@@ -4,7 +4,7 @@ pipelines:
   default:
     - step:
         script:
-          - pushd 08_qt_state_machine/
+          - pushd Projekt/
           -   mkdir build-project && pushd build-project
           -     qmake ../project
           -     make -j4 
