@@ -11,6 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = project
 TEMPLATE = app
 
+CONFIG += c++1z
+
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -25,6 +27,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         levenshteindistance.cpp \
+        File.cpp \
+        Project.cpp \
         main.cpp \
         mainwindow.cpp \
         prepare.cpp
@@ -33,6 +37,8 @@ HEADERS += \
         levenshteindistance.h \
         mainwindow.h \
         prepare.h
+        File.h \
+        Project.h \
 
 FORMS += \
         mainwindow.ui

@@ -4,6 +4,8 @@
 #include <QStateMachine>
 #include <QHistoryState>
 #include <QFileDialog>
+#include <QListView>
+#include <QTreeView>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -82,12 +84,35 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::open(){
-    emit error("open");
+
+    QFileDialog w;
+    w.setFileMode(QFileDialog::DirectoryOnly);
+    w.setOption(QFileDialog::ShowDirsOnly,false);
+    w.setOption(QFileDialog::DontUseNativeDialog,true);
+
+    QListView *lView = w.findChild<QListView*>("listView");
+    if (lView)
+        lView->setSelectionMode(QAbstractItemView::MultiSelection);
+    QTreeView *tView = w.findChild<QTreeView*>();
+    if (tView)
+        tView->setSelectionMode(QAbstractItemView::MultiSelection);
+    w.exec();
+
+    //1. Just gets a single directory, simple, no complixations
+    //QString filepath = QFileDialog::getExistingDirectory(this, tr("Open directory"), "..", QFileDialog::DontResolveSymlinks | QFileDialog::DontUseNativeDialog);
+
+    //2. Able to select multiple paths, shows other files (but can also choose them, so Project::ctor just ignores them)
+    try {
+        for(auto&& filepath: w.selectedFiles())
+            projects.emplace_back(filepath.toStdString());
+
+    } catch (const std::exception& e) {
+        emit error(e.what());
+    }
+
     emit opened();
-    //TODO: Otwieranie katalogu
     //TODO: Otwieranie katalogu drugiego
     //TODO: Wyswietlenie plikow w oknach
-    //TODO: Zapisanie sciezek, albo jakiej "tablicy" z nazwami plikow
 }
 
 void MainWindow::checkChoose(){
