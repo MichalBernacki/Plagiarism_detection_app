@@ -24,11 +24,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        levenshteindistance.cpp \
         main.cpp \
         mainwindow.cpp \
         prepare.cpp
 
 HEADERS += \
+        levenshteindistance.h \
         mainwindow.h \
         prepare.h
 
