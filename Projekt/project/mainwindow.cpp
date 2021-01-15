@@ -5,6 +5,7 @@
 #include <QHistoryState>
 #include <QFileDialog>
 #include <QDebug>
+#include <QString>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -34,7 +35,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     //OPEN
-    connect(stateOpen, SIGNAL(entered()), this, SLOT(open()));
+    //connect(stateOpen, SIGNAL(entered()), this, SLOT(open())); -> na czas testu generowania tablic !
+    connect(stateOpen, SIGNAL(entered()), this, SLOT(view()));
     stateOpen->addTransition(this, SIGNAL(error(QString)), stateError);
     stateOpen->addTransition(this, SIGNAL(opened()), stateView);
 
@@ -109,9 +111,24 @@ void MainWindow::compare(){
 
 void MainWindow::on_pushButton_clicked()
 {
+   // to jest do testu + potem to okno będzie do wyświetlania podobnych plików
    ndial = new NxNDialog(this);
    ndial->setModal(true);
    ndial->exec();
 
 }
 
+void MainWindow::view()
+{
+    this->projectCount = 5;
+    ui->taCompare->clear();
+    ui->taCompare->setRowCount(projectCount);
+    ui->taCompare->setColumnCount(projectCount);
+    for (auto r=0; r<projectCount; r++)
+    {
+        ui->taCompare->setHorizontalHeaderItem(r, new QTableWidgetItem("r"));
+        ui->taCompare->setVerticalHeaderItem(r, new QTableWidgetItem("r"));
+         for (auto c=0; c<projectCount; c++)
+              ui->taCompare->setItem( r, c, new QTableWidgetItem("123456"));
+    }
+}

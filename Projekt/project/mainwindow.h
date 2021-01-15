@@ -27,6 +27,7 @@ public slots:
     void checkChoose();
     void errorFunction();
     void compare();
+    void view();
 
 private slots:
     void on_pushButton_clicked();
@@ -36,6 +37,8 @@ private:
     NxNDialog *ndial;
 
     QString fileName;
+
+    int projectCount{};
 };
 
 #endif // MAINWINDOW_H
