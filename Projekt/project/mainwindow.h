@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "Project.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -31,6 +33,7 @@ private:
     Ui::MainWindow *ui;
 
     QString fileName;
+    std::vector<Project> projects;
 };
 
 #endif // MAINWINDOW_H
