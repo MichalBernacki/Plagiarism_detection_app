@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "nxndialog.h"
 
 #include "Project.h"
 
@@ -28,12 +29,18 @@ public slots:
     void checkChoose();
     void errorFunction();
     void compare();
+    void view();
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
+    NxNDialog *ndial;
 
     QString fileName;
     std::vector<Project> projects;
+
+    int projectCount{};
 };
 
 #endif // MAINWINDOW_H

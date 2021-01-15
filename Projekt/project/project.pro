@@ -31,7 +31,9 @@ SOURCES += \
         Project.cpp \
         main.cpp \
         mainwindow.cpp \
-        prepare.cpp
+        nxndialog.cpp\
+        prepare.cpp \
+        simplealg.cpp
 
 HEADERS += \
         levenshteindistance.h \
@@ -39,9 +41,12 @@ HEADERS += \
         prepare.h \
         File.h \
         Project.h \
+        nxndialog.h\
+    simplealg.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+        nxndialog.ui
 
 DISTFILES += \
     cppkeywords.txt
