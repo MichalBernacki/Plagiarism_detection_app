@@ -87,8 +87,8 @@ void MainWindow::open(){
 
     QFileDialog w;
     w.setFileMode(QFileDialog::DirectoryOnly);
-    w.setOption(QFileDialog::DontUseNativeDialog,true);
     w.setOption(QFileDialog::ShowDirsOnly,false);
+    w.setOption(QFileDialog::DontUseNativeDialog,true);
 
     QListView *lView = w.findChild<QListView*>("listView");
     if (lView)
