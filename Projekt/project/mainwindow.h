@@ -5,6 +5,7 @@
 #include "nxndialog.h"
 
 #include "Project.h"
+#include <unordered_set>
 
 namespace Ui {
 class MainWindow;
@@ -38,7 +39,7 @@ private:
     NxNDialog *ndial;
 
     QString fileName;
-    std::vector<Project> projects;
+    std::unordered_set<Project> projects;
 
     int projectCount{};
 };

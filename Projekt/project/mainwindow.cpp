@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <iostream>
 #include <QStateMachine>
 #include <QHistoryState>
 #include <QFileDialog>
@@ -37,8 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     //OPEN
-    //connect(stateOpen, SIGNAL(entered()), this, SLOT(open()));
-    connect(stateOpen, SIGNAL(entered()), this, SLOT(view()));//-> na czas testu generowania tablic !
+    connect(stateOpen, SIGNAL(entered()), this, SLOT(open()));
+    //connect(stateOpen, SIGNAL(entered()), this, SLOT(view()));//-> na czas testu generowania tablic !
     stateOpen->addTransition(this, SIGNAL(error(QString)), stateError);
     stateOpen->addTransition(this, SIGNAL(opened()), stateView);
 
@@ -55,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     //VIEW
+    connect(stateView, SIGNAL(entered()), this, SLOT(view()));
     stateView->assignProperty(ui->pbOpen, "enabled", true);
     stateView->assignProperty(ui->pbStart, "enabled", true);
     stateView->assignProperty(ui->taCompare, "enabled", false);
@@ -106,15 +108,16 @@ void MainWindow::open(){
     //2. Able to select multiple paths, shows other files (but can also choose them, so Project::ctor just ignores them)
     try {
         for(auto&& filepath: w.selectedFiles())
-            projects.emplace_back(filepath.toStdString());
+            projects.emplace(filepath.toStdString());
 
-    } catch (const std::exception& e) {
+    }catch(const NotADirectory& e){
+        std::cerr<<e.what()<<'\n';
+    }
+    catch (const std::exception& e) {
         emit error(e.what());
     }
 
     emit opened();
-    //TODO: Otwieranie katalogu drugiego
-    //TODO: Wyswietlenie plikow w oknach
 }
 
 void MainWindow::checkChoose(){
@@ -125,6 +128,7 @@ void MainWindow::checkChoose(){
 
 void MainWindow::errorFunction(){
     //QMessageBOX
+    std::cerr<<"I errored!\n";
     //TODO: Wyswietlic MessageBox co poszlo nie tak z otwieraniem katalogu i plikow w nim
 }
 
@@ -140,22 +144,19 @@ void MainWindow::on_pushButton_clicked()
    ndial = new NxNDialog(this);
    ndial->setModal(true);
    ndial->exec();
-
 }
 
 void MainWindow::view()
 {
-    this->projectCount = 5;
-
     ui->taCompare->clear();
-    ui->taCompare->setRowCount(projectCount);
-    ui->taCompare->setColumnCount(projectCount);
-    for (auto r=0; r<projectCount; r++)
+    ui->taCompare->setRowCount(projects.size());
+    ui->taCompare->setColumnCount(projects.size());
+    size_t r = 0;
+    for (auto& project:projects)
     {
-        ui->taCompare->setHorizontalHeaderItem(r, new QTableWidgetItem("r"));
-        ui->taCompare->setVerticalHeaderItem(r, new QTableWidgetItem("r"));
-         for (auto c=0; c<projectCount; c++)
-              ui->taCompare->setItem( r, c, new QTableWidgetItem("123456"));
+        ui->taCompare->setHorizontalHeaderItem(r, new QTableWidgetItem(project.GetName().c_str()));
+        ui->taCompare->setVerticalHeaderItem(r, new QTableWidgetItem(project.GetName().c_str()));
+        ++r;
     }
 }
 
