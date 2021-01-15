@@ -1,0 +1,47 @@
+#include "prepare.h"
+
+Prepare::Prepare(const std::string &filePath)
+{
+    std::ifstream in(filePath);
+    std::string line;
+    while(getline(in,line))
+    {
+        keywords.insert(line);
+    }
+}
+
+std::string Prepare::removeEmptyLines(std::string &str)
+{
+    std::string strtemp;
+    std::istringstream iss (str);
+    std::string sout;
+
+    while(getline(iss,strtemp))
+    {
+        while(strtemp.length()==0)
+            getline(iss,strtemp);
+
+        sout+=("\n"+strtemp);
+    }
+    return sout;
+}
+
+std::string Prepare::removeKeywords(std::string &str)
+{
+    std::string sout=str;
+    std::set<std::string>::iterator it = keywords.begin();
+    while(it!=keywords.end())
+    {
+        if(sout.find(*it)!=std::string::npos) // check if keyword even exists in code
+        {
+            size_t p = -1;
+
+            std::string tempWord = *it;
+            while ((p = sout.find(*it)) != std::string::npos)
+                sout.replace(p, tempWord.length(), "");
+        }
+        it++;
+    }
+    return sout;
+}
+
