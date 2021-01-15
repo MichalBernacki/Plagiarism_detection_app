@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "nxnwindow.h"
+#include "nxndialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -33,7 +33,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    NxNWindow *nwin;
+    NxNDialog *ndial;
 
     QString fileName;
 };

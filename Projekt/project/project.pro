@@ -26,12 +26,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        nxnwindow.cpp
+        nxndialog.cpp
 
 HEADERS += \
         mainwindow.h \
-        nxnwindow.h
+        nxndialog.h
 
 FORMS += \
         mainwindow.ui \
-        nxnwindow.ui
+        nxndialog.ui

@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
 #include <QStateMachine>
 #include <QHistoryState>
 #include <QFileDialog>
@@ -110,6 +109,9 @@ void MainWindow::compare(){
 
 void MainWindow::on_pushButton_clicked()
 {
-   nwin = new NxNWindow;
-   nwin->show();
+   ndial = new NxNDialog(this);
+   ndial->setModal(true);
+   ndial->exec();
+
 }
+
