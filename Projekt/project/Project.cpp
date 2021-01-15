@@ -11,4 +11,8 @@ Project::Project(const std::string& path): m_Name{}, m_Path{path}{
             if(p.is_regular_file())
                 m_Files.emplace_back(p.path());
     }
+    else{
+        throw NotADirectory();
+    }
+
 }
