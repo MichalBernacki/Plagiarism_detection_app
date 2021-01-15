@@ -31,14 +31,16 @@ SOURCES += \
         Project.cpp \
         main.cpp \
         mainwindow.cpp \
-        prepare.cpp
+        prepare.cpp \
+        simplealg.cpp
 
 HEADERS += \
         levenshteindistance.h \
         mainwindow.h \
         prepare.h \
         File.h \
-        Project.h \
+        Project.h \ \
+    simplealg.h
 
 FORMS += \
         mainwindow.ui

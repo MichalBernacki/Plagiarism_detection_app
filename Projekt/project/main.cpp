@@ -3,11 +3,13 @@
 #include "prepare.h"
 #include "levenshteindistance.h"
 #include <QDebug>
+
 int main(int argc, char *argv[])
 {
-    //QApplication a(argc, argv);
-    //MainWindow w;
-    //w.show();
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+    return a.exec();
     std::ifstream ifs("../project/test");
     std::string str;
     getline(ifs,str,'\0');
@@ -19,4 +21,5 @@ int main(int argc, char *argv[])
     std::cout<< "podobienstwo " << ld.compare(str,"abba");
     //return a.exec();
     return 0;
+
 }
