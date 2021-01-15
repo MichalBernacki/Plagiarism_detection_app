@@ -26,15 +26,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        levenshteindistance.cpp \
         File.cpp \
         Project.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        prepare.cpp
 
 HEADERS += \
+        levenshteindistance.h \
+        mainwindow.h \
+        prepare.h \
         File.h \
         Project.h \
-        mainwindow.h
 
 FORMS += \
         mainwindow.ui
+
+DISTFILES += \
+    cppkeywords.txt
