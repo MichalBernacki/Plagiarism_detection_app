@@ -36,7 +36,7 @@ SOURCES += \
 HEADERS += \
         levenshteindistance.h \
         mainwindow.h \
-        prepare.h
+        prepare.h \
         File.h \
         Project.h \
 

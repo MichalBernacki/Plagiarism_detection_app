@@ -12,8 +12,8 @@ public:
     std::string removeEmptyLines(std::string &str);
     std::string removeKeywords(std::string &str);
     std::set<std::string> keywords;
-private:
     std::string DeleteComments(std::string &fl);
+private:
     const std::string newline = "\n";
     const std::string comstart = "/*";
     const std::string slcom = "//";
