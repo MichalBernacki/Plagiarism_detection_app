@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 #include <QStateMachine>
 #include <QHistoryState>
 #include <QFileDialog>
@@ -106,3 +107,9 @@ void MainWindow::compare(){
     //TODO: Porownywanie i wprowadzenie wynikow do tabeli
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+   nwin = new NxNWindow;
+   nwin->show();
+}

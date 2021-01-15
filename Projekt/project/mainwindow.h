@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "nxnwindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -27,8 +28,12 @@ public slots:
     void errorFunction();
     void compare();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    NxNWindow *nwin;
 
     QString fileName;
 };
