@@ -31,7 +31,7 @@ SOURCES += \
         Project.cpp \
         main.cpp \
         mainwindow.cpp \
-        prepare.cpp
+        prepare.cpp \
         nxndialog.cpp
 
 HEADERS += \
