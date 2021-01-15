@@ -16,7 +16,7 @@ public:
     ~MainWindow();
 
 signals:
-    void error();
+    void error(QString);
     void opened();
     void mustChoose();
     void choosed();
@@ -24,8 +24,7 @@ signals:
 public slots:
     void open();
     void checkChoose();
-    void errorOpen();
-    void errorCompare();
+    void errorFunction();
     void compare();
 
 private:

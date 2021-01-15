@@ -17,8 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //ALL STATES
     auto stateStartup = new QState(stateMachine);
     auto stateOpen = new QState{stateMachine};
-    auto stateErrorOpen = new QState{stateMachine};
-    auto stateErrorCompare = new QState{stateMachine};
+    auto stateError = new QState{stateMachine};
     auto stateView = new QState{stateMachine};
     auto stateChoose = new QState{stateMachine};
     auto stateCompare = new QState{stateMachine};
@@ -26,10 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //STARTUP
     stateStartup->assignProperty(ui->pbOpen, "enabled", true);
     stateStartup->assignProperty(ui->pbStart, "enabled", false);
-    stateStartup->assignProperty(ui->teText1, "enabled", false);
-    stateStartup->assignProperty(ui->teText1, "placeholderText", "Load files to start...");
-    stateStartup->assignProperty(ui->teText2, "enabled", false);
-    stateStartup->assignProperty(ui->teText2, "placeholderText", "Load files to start...");
+    stateStartup->assignProperty(ui->taCompare, "enabled", false);
+    stateStartup->assignProperty(ui->leLabel, "text", "Load directory to start...");
     stateStartup->assignProperty(ui->cbBox1, "enabled", false);
     stateStartup->assignProperty(ui->cbBox2, "enabled", false);
 
@@ -38,37 +35,27 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //OPEN
     connect(stateOpen, SIGNAL(entered()), this, SLOT(open()));
-    stateOpen->addTransition(this, SIGNAL(error()), stateErrorOpen);
+    stateOpen->addTransition(this, SIGNAL(error(QString)), stateError);
     stateOpen->addTransition(this, SIGNAL(opened()), stateView);
 
 
     //ERROR OPEN
-    stateErrorOpen->assignProperty(ui->pbOpen, "enabled", true);
-    stateErrorOpen->assignProperty(ui->pbStart, "enabled", false);
-    stateErrorOpen->assignProperty(ui->cbBox1, "enabled", false);
-    stateErrorOpen->assignProperty(ui->cbBox2, "enabled", false);
+    stateError->assignProperty(ui->pbOpen, "enabled", true);
+    stateError->assignProperty(ui->pbStart, "enabled", false);
+    stateError->assignProperty(ui->cbBox1, "enabled", false);
+    stateError->assignProperty(ui->cbBox2, "enabled", false);
+    stateError->assignProperty(ui->taCompare, "enabled", false);
 
-    connect(stateErrorOpen, SIGNAL(entered()), this, SLOT(errorOpen()));
-    stateErrorOpen->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
-
-
-    //ERROR COMPARE
-    stateErrorCompare->assignProperty(ui->pbOpen, "enabled", true);
-    stateErrorCompare->assignProperty(ui->pbStart, "enabled", false);
-    stateErrorCompare->assignProperty(ui->cbBox1, "enabled", false);
-    stateErrorCompare->assignProperty(ui->cbBox2, "enabled", false);
-
-    connect(stateErrorCompare, SIGNAL(entered()), this, SLOT(errorCompare()));
-    stateErrorCompare->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
+    connect(stateError, SIGNAL(entered()), this, SLOT(errorFunction()));
+    stateError->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
 
 
     //VIEW
     stateView->assignProperty(ui->pbOpen, "enabled", true);
     stateView->assignProperty(ui->pbStart, "enabled", true);
+    stateView->assignProperty(ui->taCompare, "enabled", false);
     stateView->assignProperty(ui->cbBox1, "enabled", true);
     stateView->assignProperty(ui->cbBox2, "enabled", true);
-    stateView->assignProperty(ui->teText1, "enabled", true);
-    stateView->assignProperty(ui->teText2, "enabled", true);
 
     stateView->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
     stateView->addTransition(ui->pbStart, SIGNAL(clicked()), stateChoose);
@@ -81,9 +68,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     //COMPARE
+    stateCompare->assignProperty(ui->taCompare, "enabled", true);
     connect(stateCompare, SIGNAL(entered()), this, SLOT(compare()));
-    stateCompare->addTransition(this, SIGNAL(error()), stateErrorCompare);
-    //TODO: Zdefiniowac akcje jak porowna poprawnie, nie wiem gdzie sie definiuje otwarcie nowego okna
+    stateCompare->addTransition(this, SIGNAL(error(QString)), stateError);
 
     stateMachine->setInitialState(stateStartup);
     stateMachine->start();
@@ -95,7 +82,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::open(){
-    emit error();
+    emit error("open");
     emit opened();
     //TODO: Otwieranie katalogu
     //TODO: Otwieranie katalogu drugiego
@@ -109,18 +96,13 @@ void MainWindow::checkChoose(){
     //TODO: Wyswietlic messagebox z informacja, ze trzeba wybrac algorytm jak nie jest nic zatikowane
 }
 
-void MainWindow::errorOpen(){
+void MainWindow::errorFunction(){
     //QMessageBOX
     //TODO: Wyswietlic MessageBox co poszlo nie tak z otwieraniem katalogu i plikow w nim
 }
 
-void MainWindow::errorCompare(){
-    //QMessageBOX
-    //TODO: Wyswietlic MessageBox co poszlo nie tak z porownaniem
-}
-
 void MainWindow::compare(){
-    emit error();
-    //TODO: Porownywanie i otwieranie nowego okna z wynikami, jest cos jakiego jak tableView w QT
+    emit error("compare");
+    //TODO: Porownywanie i wprowadzenie wynikow do tabeli
 }
 
