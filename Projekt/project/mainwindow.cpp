@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     auto stateView = new QState{stateMachine};
     auto stateChoose = new QState{stateMachine};
     auto stateCompare = new QState{stateMachine};
+    auto stateShow = new QState{stateMachine};
 
     //STARTUP
     stateStartup->assignProperty(ui->pbOpen, "enabled", true);
@@ -33,18 +34,20 @@ MainWindow::MainWindow(QWidget *parent) :
     stateStartup->assignProperty(ui->leLabel, "text", "Load directory to start...");
     stateStartup->assignProperty(ui->cbBox1, "enabled", false);
     stateStartup->assignProperty(ui->cbBox2, "enabled", false);
+    stateStartup->assignProperty(ui->frResult, "enabled", false);
 
     stateStartup->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
 
 
     //OPEN
+    stateStartup->assignProperty(ui->frResult, "enabled", false);
     connect(stateOpen, SIGNAL(entered()), this, SLOT(open()));
     //connect(stateOpen, SIGNAL(entered()), this, SLOT(view()));//-> na czas testu generowania tablic !
     stateOpen->addTransition(this, SIGNAL(error(QString)), stateError);
     stateOpen->addTransition(this, SIGNAL(opened()), stateView);
 
 
-    //ERROR OPEN
+    //ERROR
     stateError->assignProperty(ui->pbOpen, "enabled", true);
     stateError->assignProperty(ui->pbStart, "enabled", false);
     stateError->assignProperty(ui->cbBox1, "enabled", false);
@@ -159,4 +162,10 @@ void MainWindow::view()
         ++r;
     }
 }
+
+void MainWindow::show()
+{
+    //TODO: show results for methods in right panel
+}
+
 
