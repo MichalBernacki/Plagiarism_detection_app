@@ -68,6 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     stateView->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
     stateView->addTransition(ui->pbStart, SIGNAL(clicked()), stateChoose);
+    //stateView->addTransition(ui->pbStart, SIGNAL(clicked()), stateShow);
 
 
     //CHOOSE
@@ -84,7 +85,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //SHOW
 
-    connect(stateShow, SIGNAL(entered()), this, SLOT(showResultsInPanel()));
+    connect(ui->pbFileM1, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
+    connect(ui->pbFileM2, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
+    connect(ui->pbFileM3, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
+    connect(ui->pbFileM4, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
     stateShow->assignProperty(ui->frResult, "enabled", true);
 
 
@@ -152,9 +156,9 @@ void MainWindow::compare(){
 void MainWindow::on_pushButton_clicked()
 {
    // to jest do testu + potem to okno będzie do wyświetlania podobnych plików
-   ndial = new NxNDialog(this);
-   ndial->setModal(true);
-   ndial->exec();
+    ndial = new NxNDialog(this);
+    ndial->setModal(true);
+    ndial->exec();
 }
 
 void MainWindow::view()
@@ -173,7 +177,9 @@ void MainWindow::view()
 
 void MainWindow::showResultsInPanel()
 {
-    //TODO: show results for methods in right panel
+    ndial = new NxNDialog(this);
+    ndial->setModal(true);
+    ndial->exec();
 }
 
 
