@@ -81,6 +81,7 @@ MainWindow::MainWindow(QWidget *parent) :
     stateCompare->assignProperty(ui->taCompare, "enabled", true);
     connect(stateCompare, SIGNAL(entered()), this, SLOT(compare()));
     stateCompare->addTransition(this, SIGNAL(error(QString)), stateError);
+    //connect(ui->taCompare->horizontalHeader(), SIGNAL(sectionClicked()), this, SLOT(Table_HeaderClick()) );
 
 
     //SHOW
