@@ -25,6 +25,7 @@ signals:
     void mustChoose();
     void choosed();
     void cleared();
+
 public slots:
     void open();
     void checkChoose();
@@ -33,7 +34,8 @@ public slots:
     void view();
     void clear();
     void showResultsInPanel();
-   // void onTableClicked();
+    void onTableClicked(int, int );
+
 private slots:
     void on_pushButton_clicked();
 

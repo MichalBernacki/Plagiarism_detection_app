@@ -95,6 +95,11 @@ MainWindow::MainWindow(QWidget *parent) :
     stateCompare->addTransition(this, SIGNAL(error(QString)), stateError);
     //connect(ui->taCompare->horizontalHeader(), SIGNAL(sectionClicked()), this, SLOT(Table_HeaderClick()) );
     stateCompare->addTransition(ui->pbOpen,SIGNAL(clicked(bool)),stateClear);
+    stateCompare->addTransition(ui->taCompare, SIGNAL(cellClicked(int, int)), stateShow );
+    connect(ui->taCompare, SIGNAL(cellClicked(int, int)), this, SLOT(onTableClicked(int, int)) );
+    //połączenie sygnały ze slotem a potem wypisanie
+    // wartości wewnątrz slotu
+    //todo : sprawdzić czy da się to ogarnąć dla stanu
 
     //CLEAR
     connect(stateClear, SIGNAL(entered()), this, SLOT(clear()));
@@ -287,6 +292,9 @@ void MainWindow::showResultsInPanel()
     ndial->setModal(true);
     ndial->exec();
 }
-
+void MainWindow::onTableClicked(int x, int y )
+{
+    qDebug() <<"x: "<<x << " y: " << y;
+}
 
 
