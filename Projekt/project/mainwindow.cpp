@@ -94,8 +94,8 @@ void MainWindow::open(){
 
     QFileDialog w;
     w.setFileMode(QFileDialog::DirectoryOnly);
-    w.setOption(QFileDialog::ShowDirsOnly,false);
     w.setOption(QFileDialog::DontUseNativeDialog,true);
+    //w.setOption(QFileDialog::ShowDirsOnly,false); //Decide whether we want to see other files, more intuitive navigation, weird selection "quirks"
 
     QListView *lView = w.findChild<QListView*>("listView");
     if (lView)
@@ -104,8 +104,7 @@ void MainWindow::open(){
     if (tView)
         tView->setSelectionMode(QAbstractItemView::MultiSelection);
 
-    int execRes = w.exec();
-    if(execRes == 0){
+    if(w.exec() == 0){
         emit opened();  //User canceled
         return;
     }
@@ -114,7 +113,7 @@ void MainWindow::open(){
     //QString filepath = QFileDialog::getExistingDirectory(this, tr("Open directory"), "..", QFileDialog::DontResolveSymlinks | QFileDialog::DontUseNativeDialog);
 
     //2. Able to select multiple paths, shows other files (but can also choose them, so Project::ctor just ignores them)
-    for(auto&& filepath: w.selectedFiles()){
+    for(auto& filepath: w.selectedFiles()){
         try {
             projects.emplace(filepath.toStdString());
         }catch(const NotADirectory& e){
@@ -123,7 +122,8 @@ void MainWindow::open(){
         catch (const std::exception& e) {
             emit error(e.what());   //works only if error is not a state, but a function
                                     //can also try to build-up an error state, or error message
-                                    //and send it afterwards, decide whether to discard
+                                    //and send it afterwards,
+                                    //decide whether to discard
                                     //all projects, or just invalid ones
         }
     }
