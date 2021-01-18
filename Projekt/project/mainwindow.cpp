@@ -110,7 +110,7 @@ void MainWindow::open(){
         return;
     }
 
-    //1. Just gets a single directory, simple, no complixations
+    //1. Just gets a single directory, simple, no complications
     //QString filepath = QFileDialog::getExistingDirectory(this, tr("Open directory"), "..", QFileDialog::DontResolveSymlinks | QFileDialog::DontUseNativeDialog);
 
     //2. Able to select multiple paths, shows other files (but can also choose them, so Project::ctor just ignores them)
@@ -122,6 +122,9 @@ void MainWindow::open(){
         }
         catch (const std::exception& e) {
             emit error(e.what());   //works only if error is not a state, but a function
+                                    //can also try to build-up an error state, or error message
+                                    //and send it afterwards, decide whether to discard
+                                    //all projects, or just invalid ones
         }
     }
     emit opened();
