@@ -94,6 +94,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(stateCompare, SIGNAL(entered()), this, SLOT(compare()));
     stateCompare->addTransition(this, SIGNAL(error(QString)), stateError);
     stateCompare->addTransition(ui->taCompare, SIGNAL(cellClicked(int, int)), stateShow );
+    connect(ui->taCompare, SIGNAL(cellClicked(int, int)), this, SLOT(onTableClicked(int, int)) );
+    //połączenie sygnały ze slotem a potem wypisanie
+    // wartości wewnątrz slotu
+    //todo : sprawdzić czy da się to ogarnąć dla stanu
 
 
     //SHOW
@@ -274,6 +278,9 @@ void MainWindow::showResultsInPanel()
     ndial->setModal(true);
     ndial->exec();
 }
-
+void MainWindow::onTableClicked(int x, int y )
+{
+    qDebug() <<"x: "<<x << " y: " << y;
+}
 
 
