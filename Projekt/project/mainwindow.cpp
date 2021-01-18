@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "levenshteindistance.h"
 #include "simplealg.h"
+#include "prepare.h"
 #include <iostream>
 #include <QStateMachine>
 #include <QHistoryState>
@@ -160,6 +161,11 @@ void MainWindow::compare(){
     {
         for(auto project2:projects)
         {
+            if(k==l)
+            {
+                k++;
+                continue;
+            }
             std::vector p1 = project.GetFiles();
             std::vector p2 = project2.GetFiles();
             float percent = 0;
@@ -167,17 +173,42 @@ void MainWindow::compare(){
             for(int i=0; i<p1.size(); i++)
                 for(int j=0; j<p2.size(); j++)
                 {
+                    std::string s1=p1.at(i).m_OriginalContent;
+                    std::string s2=p2.at(j).m_OriginalContent;
+                    Prepare p{"../project/cppkeywords.txt"};
+                    if(ui->cbBox5->isChecked())
+                    {
+                        //komentarze
+                        s1=p.DeleteComments(s1);
+                        s2=p.DeleteComments(s2);
+                    }
+                    if(ui->cbBox3->isChecked())
+                    {
+                        //slowa kluczowe
+                       s1=p.removeKeywords(s1);
+                       s2=p.removeKeywords(s2);
+                    }
+
+                    if(ui->cbBox4->isChecked())
+                    {
+                        //puste linie
+                        s1=p.removeEmptyLines(s1);
+                        s2=p.removeEmptyLines(s2);
+                    }
+
                     if(ui->cbBox1->isChecked())
                     {
                         num_of_cmp++;
                         LevenshteinDistance l{};
-                        percent+=l.compare(p1.at(i).m_OriginalContent,p2.at(j).m_OriginalContent);
+
+
+                        percent+=l.compare(s1,s2);
                     }
                     if(ui->cbBox2->isChecked())
                     {
                         num_of_cmp++;
                         SimpleAlg l{};
-                        percent+=l.compare(p1.at(i).m_OriginalContent,p2.at(j).m_OriginalContent);
+                        percent+=l.compare(s1,s2);
                     }
                 }
             percent/=num_of_cmp;
