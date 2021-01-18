@@ -1,0 +1,8 @@
+int main(int argc, char *argv[])
+{
+    std::cout << "Przed: \n" << str << std::endl;
+    Prepare p{};
+    std::string test = p.DeleteComments(str);
+    std::cout<< "Po:\n" << test << std::endl;
+    return 0;
+}
