@@ -9,7 +9,7 @@
 #include <QTreeView>
 #include <QDebug>
 #include <QString>
-
+#include <QMessageBox>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -124,9 +124,15 @@ void MainWindow::open(){
 }
 
 void MainWindow::checkChoose(){
-    emit mustChoose();
-    emit choosed();
-    //TODO: Wyswietlic messagebox z informacja, ze trzeba wybrac algorytm jak nie jest nic zatikowane
+    if( !(ui->cbBox1->isChecked() || ui->cbBox2->isChecked()))
+    {
+        QMessageBox msgBox;
+        msgBox.setText("You have to choose at least 1 algorithm!");
+        msgBox.exec();
+        emit mustChoose();
+    }
+    else
+        emit choosed();
 }
 
 void MainWindow::errorFunction(){
