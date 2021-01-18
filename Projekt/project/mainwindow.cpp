@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "levenshteindistance.h"
+#include "simplealg.h"
 #include <iostream>
 #include <QStateMachine>
 #include <QHistoryState>
@@ -73,7 +74,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //CHOOSE
     connect(stateChoose, SIGNAL(entered()), this, SLOT(checkChoose()));
     stateChoose->addTransition(this, SIGNAL(mustChoose()), stateView);
-    stateChoose->addTransition(this, SIGNAL(choosed()), stateView);
+    stateChoose->addTransition(this, SIGNAL(choosed()), stateCompare);
 
 
     //COMPARE
@@ -142,8 +143,44 @@ void MainWindow::errorFunction(){
 }
 
 void MainWindow::compare(){
-    emit error("compare");
-    //TODO: Porownywanie i wprowadzenie wynikow do tabeli
+    //emit error("compare");
+    int l = 0;
+    int k = 0;
+    for (auto project:projects)
+    {
+        for(auto project2:projects)
+        {
+            std::vector p1 = project.GetFiles();
+            std::vector p2 = project2.GetFiles();
+            float percent = 0;
+            float num_of_cmp = 0;
+            for(int i=0; i<p1.size(); i++)
+                for(int j=0; j<p2.size(); j++)
+                {
+                    if(ui->cbBox1->isChecked())
+                    {
+                        num_of_cmp++;
+                        LevenshteinDistance l{};
+                        percent+=l.compare(p1.at(i).m_OriginalContent,p2.at(j).m_OriginalContent);
+                    }
+                    if(ui->cbBox2->isChecked())
+                    {
+                        num_of_cmp++;
+                        SimpleAlg l{};
+                        percent+=l.compare(p1.at(i).m_OriginalContent,p2.at(j).m_OriginalContent);
+                    }
+                }
+            percent/=num_of_cmp;
+            QTableWidgetItem *item = ui->taCompare->item(l,k);
+            item= new QTableWidgetItem();
+            ui->taCompare->setItem(l,k,item);
+            item->setText(QString::number(percent*100)+"%");
+            k++;
+        }
+        k=0;
+        l++;
+    }
+    ui->retranslateUi(this);
 }
 
 
