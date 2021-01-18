@@ -11,6 +11,7 @@
 #include <QDebug>
 #include <QString>
 #include <QMessageBox>
+#include <QColor>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -175,6 +176,7 @@ void MainWindow::compare(){
             item= new QTableWidgetItem();
             ui->taCompare->setItem(l,k,item);
             item->setText(QString::number(percent*100)+"%");
+            item->setBackground(QColor(255*percent,255-255*percent,0,255));
             k++;
         }
         k=0;
