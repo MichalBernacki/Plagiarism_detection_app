@@ -33,7 +33,6 @@ public slots:
     void compare();
     void view();
     void showResultsInPanel();
-    void onTableClicked();
 
 private slots:
     void on_pushButton_clicked();
