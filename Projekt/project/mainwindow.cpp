@@ -163,7 +163,7 @@ void MainWindow::view()
     }
 }
 
-void MainWindow::show()
+void MainWindow::showResultsInPanel()
 {
     //TODO: show results for methods in right panel
 }

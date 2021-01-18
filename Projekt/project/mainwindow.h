@@ -31,7 +31,7 @@ public slots:
     void errorFunction();
     void compare();
     void view();
-    void show();
+    void showResultsInPanel();
 private slots:
     void on_pushButton_clicked();
 
