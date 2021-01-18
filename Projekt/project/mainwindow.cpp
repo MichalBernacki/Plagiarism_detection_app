@@ -118,8 +118,8 @@ void MainWindow::open(){
 
     QFileDialog w;
     w.setFileMode(QFileDialog::DirectoryOnly);
-    w.setOption(QFileDialog::ShowDirsOnly,false);
     w.setOption(QFileDialog::DontUseNativeDialog,true);
+    //w.setOption(QFileDialog::ShowDirsOnly,false); //Decide whether we want to see other files, more intuitive navigation, weird selection "quirks"
 
     QListView *lView = w.findChild<QListView*>("listView");
     if (lView)
@@ -127,23 +127,30 @@ void MainWindow::open(){
     QTreeView *tView = w.findChild<QTreeView*>();
     if (tView)
         tView->setSelectionMode(QAbstractItemView::MultiSelection);
-    w.exec();
 
-    //1. Just gets a single directory, simple, no complixations
+    if(w.exec() == 0){
+        emit opened();  //User canceled
+        return;
+    }
+
+    //1. Just gets a single directory, simple, no complications
     //QString filepath = QFileDialog::getExistingDirectory(this, tr("Open directory"), "..", QFileDialog::DontResolveSymlinks | QFileDialog::DontUseNativeDialog);
 
     //2. Able to select multiple paths, shows other files (but can also choose them, so Project::ctor just ignores them)
-    try {
-        for(auto&& filepath: w.selectedFiles())
+    for(auto& filepath: w.selectedFiles()){
+        try {
             projects.emplace(filepath.toStdString());
-
-    }catch(const NotADirectory& e){
-        std::cerr<<e.what()<<'\n';
+        }catch(const NotADirectory& e){
+            std::cerr<<e.what()<<'\n';//best to just ignore it
+        }
+        catch (const std::exception& e) {
+            emit error(e.what());   //works only if error is not a state, but a function
+                                    //can also try to build-up an error state, or error message
+                                    //and send it afterwards,
+                                    //decide whether to discard
+                                    //all projects, or just invalid ones
+        }
     }
-    catch (const std::exception& e) {
-        emit error(e.what());
-    }
-
     emit opened();
 }
 
