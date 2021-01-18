@@ -48,9 +48,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //OPEN
     stateStartup->assignProperty(ui->frResult, "enabled", false);
     connect(stateOpen, SIGNAL(entered()), this, SLOT(open()));
-    //connect(stateOpen, SIGNAL(entered()), this, SLOT(view()));//-> na czas testu generowania tablic !
     stateOpen->addTransition(this, SIGNAL(error(QString)), stateError);
     stateOpen->addTransition(this, SIGNAL(opened()), stateView);
+
 
 
     //ERROR
@@ -80,6 +80,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     stateView->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
     stateView->addTransition(ui->pbStart, SIGNAL(clicked()), stateChoose);
+    //stateView->addTransition(ui->pbStart, SIGNAL(clicked()), stateShow);
 
 
     //CHOOSE
@@ -92,6 +93,17 @@ MainWindow::MainWindow(QWidget *parent) :
     stateCompare->assignProperty(ui->taCompare, "enabled", true);
     connect(stateCompare, SIGNAL(entered()), this, SLOT(compare()));
     stateCompare->addTransition(this, SIGNAL(error(QString)), stateError);
+
+
+    //SHOW
+
+    connect(ui->pbFileM1, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
+    connect(ui->pbFileM2, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
+    connect(ui->pbFileM3, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
+    connect(ui->pbFileM4, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
+    stateShow->assignProperty(ui->frResult, "enabled", true);
+
+
 
     stateMachine->setInitialState(stateStartup);
     stateMachine->start();
@@ -229,9 +241,9 @@ void MainWindow::compare(){
 void MainWindow::on_pushButton_clicked()
 {
    // to jest do testu + potem to okno będzie do wyświetlania podobnych plików
-   ndial = new NxNDialog(this);
-   ndial->setModal(true);
-   ndial->exec();
+    ndial = new NxNDialog(this);
+    ndial->setModal(true);
+    ndial->exec();
 }
 
 void MainWindow::view()
@@ -250,7 +262,10 @@ void MainWindow::view()
 
 void MainWindow::showResultsInPanel()
 {
-    //TODO: show results for methods in right panel
+    ndial = new NxNDialog(this);
+    ndial->setModal(true);
+    ndial->exec();
 }
+
 
 
