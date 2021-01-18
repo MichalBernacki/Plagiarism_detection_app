@@ -93,7 +93,7 @@ MainWindow::MainWindow(QWidget *parent) :
     stateCompare->assignProperty(ui->taCompare, "enabled", true);
     connect(stateCompare, SIGNAL(entered()), this, SLOT(compare()));
     stateCompare->addTransition(this, SIGNAL(error(QString)), stateError);
-    //connect(ui->taCompare->horizontalHeader(), SIGNAL(sectionClicked()), this, SLOT(Table_HeaderClick()) );
+    connect(ui->taCompare, SIGNAL(cellClicked(int, int)), this, SLOT(onTableClicked()) );
 
 
     //SHOW
@@ -273,6 +273,11 @@ void MainWindow::showResultsInPanel()
     ndial = new NxNDialog(this);
     ndial->setModal(true);
     ndial->exec();
+}
+
+void MainWindow::onTableClicked()
+{
+    qDebug() << "eelloo!";
 }
 
 

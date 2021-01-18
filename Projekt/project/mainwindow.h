@@ -24,6 +24,7 @@ signals:
     void opened();
     void mustChoose();
     void choosed();
+    void sectionClicked();
 
 public slots:
     void open();
@@ -32,7 +33,8 @@ public slots:
     void compare();
     void view();
     void showResultsInPanel();
-   // void onTableClicked();
+    void onTableClicked();
+
 private slots:
     void on_pushButton_clicked();
 
