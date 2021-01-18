@@ -103,23 +103,27 @@ void MainWindow::open(){
     QTreeView *tView = w.findChild<QTreeView*>();
     if (tView)
         tView->setSelectionMode(QAbstractItemView::MultiSelection);
-    w.exec();
+
+    int execRes = w.exec();
+    if(execRes == 0){
+        emit opened();  //User canceled
+        return;
+    }
 
     //1. Just gets a single directory, simple, no complixations
     //QString filepath = QFileDialog::getExistingDirectory(this, tr("Open directory"), "..", QFileDialog::DontResolveSymlinks | QFileDialog::DontUseNativeDialog);
 
     //2. Able to select multiple paths, shows other files (but can also choose them, so Project::ctor just ignores them)
-    try {
-        for(auto&& filepath: w.selectedFiles())
+    for(auto&& filepath: w.selectedFiles()){
+        try {
             projects.emplace(filepath.toStdString());
-
-    }catch(const NotADirectory& e){
-        std::cerr<<e.what()<<'\n';
+        }catch(const NotADirectory& e){
+            std::cerr<<e.what()<<'\n';//best to just ignore it
+        }
+        catch (const std::exception& e) {
+            emit error(e.what());   //works only if error is not a state, but a function
+        }
     }
-    catch (const std::exception& e) {
-        emit error(e.what());
-    }
-
     emit opened();
 }
 
