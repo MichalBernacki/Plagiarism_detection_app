@@ -42,9 +42,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //OPEN
     stateStartup->assignProperty(ui->frResult, "enabled", false);
     connect(stateOpen, SIGNAL(entered()), this, SLOT(open()));
-    //connect(stateOpen, SIGNAL(entered()), this, SLOT(view()));//-> na czas testu generowania tablic !
     stateOpen->addTransition(this, SIGNAL(error(QString)), stateError);
     stateOpen->addTransition(this, SIGNAL(opened()), stateView);
+
 
 
     //ERROR
@@ -73,13 +73,21 @@ MainWindow::MainWindow(QWidget *parent) :
     //CHOOSE
     connect(stateChoose, SIGNAL(entered()), this, SLOT(checkChoose()));
     stateChoose->addTransition(this, SIGNAL(mustChoose()), stateView);
-    stateChoose->addTransition(this, SIGNAL(choosed()), stateView);
+    stateChoose->addTransition(this, SIGNAL(choosed()), stateCompare);
 
 
     //COMPARE
     stateCompare->assignProperty(ui->taCompare, "enabled", true);
     connect(stateCompare, SIGNAL(entered()), this, SLOT(compare()));
     stateCompare->addTransition(this, SIGNAL(error(QString)), stateError);
+
+
+    //SHOW
+
+    connect(stateShow, SIGNAL(entered()), this, SLOT(showResultsInPanel()));
+    stateShow->assignProperty(ui->frResult, "enabled", true);
+
+
 
     stateMachine->setInitialState(stateStartup);
     stateMachine->start();
@@ -167,5 +175,6 @@ void MainWindow::showResultsInPanel()
 {
     //TODO: show results for methods in right panel
 }
+
 
 
