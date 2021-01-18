@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     auto stateChoose = new QState{stateMachine};
     auto stateCompare = new QState{stateMachine};
     auto stateShow = new QState{stateMachine};
-
+    auto stateClear = new QState{stateMachine};
     //STARTUP
     stateStartup->assignProperty(ui->pbOpen, "enabled", true);
     stateStartup->assignProperty(ui->pbStart, "enabled", false);
@@ -94,6 +94,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(stateCompare, SIGNAL(entered()), this, SLOT(compare()));
     stateCompare->addTransition(this, SIGNAL(error(QString)), stateError);
     //connect(ui->taCompare->horizontalHeader(), SIGNAL(sectionClicked()), this, SLOT(Table_HeaderClick()) );
+    stateCompare->addTransition(ui->pbOpen,SIGNAL(clicked(bool)),stateClear);
+
+    //CLEAR
+    connect(stateClear, SIGNAL(entered()), this, SLOT(clear()));
+    stateClear->addTransition(this,SIGNAL(cleared()),stateOpen);
 
 
     //SHOW
@@ -172,6 +177,14 @@ void MainWindow::errorFunction(){
     std::cerr<<"I errored!\n";
     //TODO: Wyswietlic MessageBox co poszlo nie tak z otwieraniem katalogu i plikow w nim
 }
+
+
+void MainWindow::clear(){
+    ui->taCompare->clear();
+    projects.erase(projects.begin(),projects.end());
+    emit cleared();
+}
+
 
 void MainWindow::compare(){
     //emit error("compare");

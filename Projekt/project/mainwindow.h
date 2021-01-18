@@ -24,13 +24,14 @@ signals:
     void opened();
     void mustChoose();
     void choosed();
-
+    void cleared();
 public slots:
     void open();
     void checkChoose();
     void errorFunction();
     void compare();
     void view();
+    void clear();
     void showResultsInPanel();
    // void onTableClicked();
 private slots:
