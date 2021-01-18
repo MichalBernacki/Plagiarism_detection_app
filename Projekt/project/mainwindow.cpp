@@ -36,6 +36,9 @@ MainWindow::MainWindow(QWidget *parent) :
     stateStartup->assignProperty(ui->leLabel, "text", "Load directory to start...");
     stateStartup->assignProperty(ui->cbBox1, "enabled", false);
     stateStartup->assignProperty(ui->cbBox2, "enabled", false);
+    stateStartup->assignProperty(ui->cbBox3, "enabled", false);
+    stateStartup->assignProperty(ui->cbBox4, "enabled", false);
+    stateStartup->assignProperty(ui->cbBox5, "enabled", false);
     stateStartup->assignProperty(ui->frResult, "enabled", false);
 
     stateStartup->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
@@ -54,6 +57,9 @@ MainWindow::MainWindow(QWidget *parent) :
     stateError->assignProperty(ui->pbStart, "enabled", false);
     stateError->assignProperty(ui->cbBox1, "enabled", false);
     stateError->assignProperty(ui->cbBox2, "enabled", false);
+    stateError->assignProperty(ui->cbBox3, "enabled", false);
+    stateError->assignProperty(ui->cbBox4, "enabled", false);
+    stateError->assignProperty(ui->cbBox5, "enabled", false);
     stateError->assignProperty(ui->taCompare, "enabled", false);
 
     connect(stateError, SIGNAL(entered()), this, SLOT(errorFunction()));
@@ -67,6 +73,9 @@ MainWindow::MainWindow(QWidget *parent) :
     stateView->assignProperty(ui->taCompare, "enabled", false);
     stateView->assignProperty(ui->cbBox1, "enabled", true);
     stateView->assignProperty(ui->cbBox2, "enabled", true);
+    stateView->assignProperty(ui->cbBox3, "enabled", true);
+    stateView->assignProperty(ui->cbBox4, "enabled", true);
+    stateView->assignProperty(ui->cbBox5, "enabled", true);
 
     stateView->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
     stateView->addTransition(ui->pbStart, SIGNAL(clicked()), stateChoose);

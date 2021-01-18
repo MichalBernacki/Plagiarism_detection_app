@@ -131,6 +131,27 @@
                </property>
               </widget>
              </item>
+             <item>
+              <widget class="QCheckBox" name="cbBox3">
+               <property name="text">
+                <string>No keywords</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbBox4">
+               <property name="text">
+                <string>No blank lines</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cbBox5">
+               <property name="text">
+                <string>No comments</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
           </layout>
