@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>600</height>
+    <width>1200</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -155,13 +155,6 @@
             </layout>
            </item>
           </layout>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton">
-           <property name="text">
-            <string>TestNewWindow</string>
-           </property>
-          </widget>
          </item>
          <item>
           <spacer name="verticalSpacer">
