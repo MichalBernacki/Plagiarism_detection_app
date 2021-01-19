@@ -280,11 +280,15 @@ void MainWindow::view()
     ui->taCompare->clear();
     ui->taCompare->setRowCount(projects.size());
     ui->taCompare->setColumnCount(projects.size());
+
+    ui->taCompare->horizontalHeader()->setDefaultSectionSize(160);  //width
+    ui->taCompare->verticalHeader()->setDefaultSectionSize(90);     //height  -> Size of cell below
     size_t r = 0;
     for (auto& project:projects)
     {
         ui->taCompare->setHorizontalHeaderItem(r, new QTableWidgetItem(project.GetName().c_str()));
         ui->taCompare->setVerticalHeaderItem(r, new QTableWidgetItem(project.GetName().c_str()));
+
         ++r;
     }
 }
