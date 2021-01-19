@@ -18,10 +18,8 @@ void Prepare::removeEmptyLines(std::string &str)
 
     while(getline(iss,strtemp))
     {
-        while(strtemp.length()==0)
-            getline(iss,strtemp);
-
-        sout+=("\n"+strtemp);
+        if(strtemp.length()!=0)
+          sout+=("\n"+strtemp);
     }
     str = sout;
 }
