@@ -19,12 +19,15 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+
+
 signals:
     void error(QString);
     void opened();
     void mustChoose();
     void choosed();
     void cleared();
+
 
 public slots:
     void open();
@@ -46,7 +49,10 @@ private:
     QString fileName;
     std::unordered_set<Project> projects;
 
-    int projectCount{};
+    int xParam{};
+    int yParam{};
+    int option{};
+
 };
 
 #endif // MAINWINDOW_H

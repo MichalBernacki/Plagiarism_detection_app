@@ -97,6 +97,7 @@ MainWindow::MainWindow(QWidget *parent) :
     stateCompare->addTransition(ui->pbOpen,SIGNAL(clicked(bool)),stateClear);
     stateCompare->addTransition(ui->taCompare, SIGNAL(cellClicked(int, int)), stateShow );
     connect(ui->taCompare, SIGNAL(cellClicked(int, int)), this, SLOT(onTableClicked(int, int)) );
+
     //połączenie sygnały ze slotem a potem wypisanie
     // wartości wewnątrz slotu
     //todo : sprawdzić czy da się to ogarnąć dla stanu
@@ -113,7 +114,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pbFileM3, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
     connect(ui->pbFileM4, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
     stateShow->assignProperty(ui->frResult, "enabled", true);
-
 
 
     stateMachine->setInitialState(stateStartup);
@@ -267,7 +267,7 @@ void MainWindow::compare(){
 void MainWindow::on_pushButton_clicked()
 {
    // to jest do testu + potem to okno będzie do wyświetlania podobnych plików
-    ndial = new NxNDialog(this);
+    ndial = new NxNDialog(this, xParam, yParam, option);
     ndial->setModal(true);
     ndial->exec();
 }
@@ -288,13 +288,16 @@ void MainWindow::view()
 
 void MainWindow::showResultsInPanel()
 {
-    ndial = new NxNDialog(this);
+    this->option = 22;
+    ndial = new NxNDialog(this, xParam, yParam, option);
     ndial->setModal(true);
     ndial->exec();
 }
 void MainWindow::onTableClicked(int x, int y )
 {
-    qDebug() <<"x: "<<x << " y: " << y;
+    this->xParam = x;
+    this->yParam = y;
+
 }
 
 
