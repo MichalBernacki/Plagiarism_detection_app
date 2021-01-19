@@ -9,10 +9,10 @@ class Prepare
 {
 public:
     Prepare(const std::string &filePath);
-    std::string removeEmptyLines(std::string &str);
-    std::string removeKeywords(std::string &str);
+    void removeEmptyLines(std::string &str);
+    void removeKeywords(std::string &str);
     std::set<std::string> keywords;
-    std::string DeleteComments(std::string &fl);
+    void DeleteComments(std::string &fl);
 private:
     const std::string newline = "\n";
     const std::string comstart = "/*";

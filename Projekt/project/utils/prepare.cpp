@@ -10,7 +10,7 @@ Prepare::Prepare(const std::string &filePath)
     }
 }
 
-std::string Prepare::removeEmptyLines(std::string &str)
+void Prepare::removeEmptyLines(std::string &str)
 {
     std::string strtemp;
     std::istringstream iss (str);
@@ -23,10 +23,10 @@ std::string Prepare::removeEmptyLines(std::string &str)
 
         sout+=("\n"+strtemp);
     }
-    return sout;
+    str = sout;
 }
 
-std::string Prepare::removeKeywords(std::string &str)
+void Prepare::removeKeywords(std::string &str)
 {
     std::string sout=str;
     std::set<std::string>::iterator it = keywords.begin();
@@ -42,24 +42,24 @@ std::string Prepare::removeKeywords(std::string &str)
         }
         it++;
     }
-    return sout;
+    str = sout;
 }
 
 
-std::string Prepare::DeleteComments(std::string &fl)
+void Prepare::DeleteComments(std::string &fl)
 {
     std::istringstream file(fl);
     std::string code;
     getline(file,code,'\0');
     while(code.find(comstart) != std::string::npos)
     {
-        size_t b = code.find(comstart);
+        unsigned long long b = code.find(comstart);
         code.erase(b, (code.find(comend,b)-b)+2);
     }
     while(code.find(slcom) != std::string::npos)
     {
-        size_t b = code.find(slcom);
+        unsigned long long b = code.find(slcom);
         code.erase(b, (code.find(newline,b)-b));
     }
-    return code;
+    fl = code;
 }

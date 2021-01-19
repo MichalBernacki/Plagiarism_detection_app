@@ -213,25 +213,25 @@ void MainWindow::compare(){
                 {
                     std::string s1=p1.at(i).m_OriginalContent;
                     std::string s2=p2.at(j).m_OriginalContent;
-                    Prepare p{"../project/cppkeywords.txt"};
+                    Prepare p{"../../project/app/cppkeywords.txt"};
                     if(ui->cbBox5->isChecked())
                     {
                         //komentarze
-                        s1=p.DeleteComments(s1);
-                        s2=p.DeleteComments(s2);
+                        p.DeleteComments(s1);
+                        p.DeleteComments(s2);
                     }
                     if(ui->cbBox3->isChecked())
                     {
                         //slowa kluczowe
-                       s1=p.removeKeywords(s1);
-                       s2=p.removeKeywords(s2);
+                       p.removeKeywords(s1);
+                       p.removeKeywords(s2);
                     }
 
                     if(ui->cbBox4->isChecked())
                     {
                         //puste linie
-                        s1=p.removeEmptyLines(s1);
-                        s2=p.removeEmptyLines(s2);
+                        p.removeEmptyLines(s1);
+                        p.removeEmptyLines(s2);
                     }
 
                     if(ui->cbBox1->isChecked())
