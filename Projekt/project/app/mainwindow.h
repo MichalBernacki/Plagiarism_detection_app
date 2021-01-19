@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "nxndialog.h"
+#include <QButtonGroup>
 
 #include "Project.h"
 #include <unordered_set>
@@ -27,7 +28,7 @@ signals:
     void mustChoose();
     void choosed();
     void cleared();
-
+    void toShow();
 
 public slots:
     void open();
@@ -38,6 +39,7 @@ public slots:
     void clear();
     void showResultsInPanel();
     void onTableClicked(int, int );
+    void onButtonClicked(int );
 
 private slots:
     void on_pushButton_clicked();
@@ -48,6 +50,8 @@ private:
 
     QString fileName;
     std::unordered_set<Project> projects;
+
+    QButtonGroup* group;
 
     int xParam{};
     int yParam{};

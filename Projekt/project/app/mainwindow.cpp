@@ -109,10 +109,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //SHOW
 
-    connect(ui->pbFileM1, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
-    connect(ui->pbFileM2, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
-    connect(ui->pbFileM3, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
-    connect(ui->pbFileM4, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
+    group = new QButtonGroup(this);
+    group->addButton(ui->pbFileM1);
+    group->addButton(ui->pbFileM2);
+    group->addButton(ui->pbFileM3);
+    group->addButton(ui->pbFileM4);
+
+    group->setId(ui->pbFileM1, 1);
+    group->setId(ui->pbFileM2, 2);
+    group->setId(ui->pbFileM3, 3);
+    group->setId(ui->pbFileM4, 4);
+
+    connect(group, SIGNAL(buttonClicked(int)), this, SLOT(onButtonClicked(int)));
+
+    connect(this, SIGNAL(toShow()), this, SLOT(showResultsInPanel()));
     stateShow->assignProperty(ui->frResult, "enabled", true);
 
 
@@ -288,7 +298,7 @@ void MainWindow::view()
 
 void MainWindow::showResultsInPanel()
 {
-    this->option = 22;
+    //this->option = 22;
     ndial = new NxNDialog(this, xParam, yParam, option);
     ndial->setModal(true);
     ndial->exec();
@@ -298,6 +308,12 @@ void MainWindow::onTableClicked(int x, int y )
     this->xParam = x;
     this->yParam = y;
 
+}
+void MainWindow::onButtonClicked(int opt)
+{
+    this->option = opt;
+    //qDebug() << "button id: " << opt;
+    emit(toShow());
 }
 
 
