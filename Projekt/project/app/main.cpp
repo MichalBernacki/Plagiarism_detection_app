@@ -6,20 +6,17 @@
 
 int main(int argc, char *argv[])
 {
+//    std::string s = "int int int testowo pisze cos \n //halo \n\n\nss";
+//    std::cout << s << std::endl;
+//    Prepare p{"../../project/app/cppkeywords.txt"};
+//    p.DeleteComments(s);
+//    std::cout << s << std::endl;
+//    p.removeKeywords(s);
+//    std::cout << s << std::endl;
+//    p.removeEmptyLines(s);
+//    std::cout << s << std::endl;
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
     return a.exec();
-    std::ifstream ifs("../project/test");
-    std::string str;
-    getline(ifs,str,'\0');
-    std::cout << "Przed: \n" << str << std::endl;
-    Prepare p{"../project/cppkeywords.txt"};
-    LevenshteinDistance ld{};
-    std::string test = p.DeleteComments(str);
-    std::cout<< "Po:\n" << test << std::endl;
-    std::cout<< "podobienstwo " << ld.compare(str,"abba");
-    //return a.exec();
-    return 0;
-
 }
