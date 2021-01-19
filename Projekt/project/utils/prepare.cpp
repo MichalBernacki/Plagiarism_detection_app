@@ -19,7 +19,7 @@ void Prepare::removeEmptyLines(std::string &str)
     while(getline(iss,strtemp))
     {
         if(strtemp.length()!=0)
-          sout+=("\n"+strtemp);
+          sout+=(strtemp+"\n");
     }
     str = sout;
 }
