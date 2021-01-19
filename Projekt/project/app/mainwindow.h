@@ -41,8 +41,6 @@ public slots:
     void onTableClicked(int, int );
     void onButtonClicked(int );
 
-private slots:
-    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

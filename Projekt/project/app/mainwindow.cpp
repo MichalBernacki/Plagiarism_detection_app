@@ -274,13 +274,6 @@ void MainWindow::compare(){
 }
 
 
-void MainWindow::on_pushButton_clicked()
-{
-   // to jest do testu + potem to okno będzie do wyświetlania podobnych plików
-    ndial = new NxNDialog(this, xParam, yParam, option);
-    ndial->setModal(true);
-    ndial->exec();
-}
 
 void MainWindow::view()
 {
