@@ -205,6 +205,10 @@ void MainWindow::compare(){
     //emit error("compare");
     int l = 0;
     int k = 0;
+
+    results.clear();
+    results.resize(projects.size()*projects.size());
+
     for (auto project:projects)
     {
         for(auto project2:projects)
@@ -216,6 +220,10 @@ void MainWindow::compare(){
             }
             std::vector p1 = project.GetFiles();
             std::vector p2 = project2.GetFiles();
+
+            float levenshteinRes = 0;
+            float simpleAlgRes = 0;
+
             float percent = 0;
             float num_of_cmp = 0;
             for(int i=0; i<p1.size(); i++)
@@ -248,18 +256,25 @@ void MainWindow::compare(){
                     {
                         num_of_cmp++;
                         LevenshteinDistance l{};
-
-
-                        percent+=l.compare(s1,s2);
+                        float res = l.compare(s1,s2);
+                        levenshteinRes +=res;
+                        percent+=res;
                     }
                     if(ui->cbBox2->isChecked())
                     {
                         num_of_cmp++;
                         SimpleAlg l{};
-                        percent+=l.compare(s1,s2);
+                        float res = l.compare(s1,s2);
+                        simpleAlgRes += res;
+                        percent+=res;
                     }
                 }
             percent/=num_of_cmp;
+            levenshteinRes /= p1.size()*p2.size();
+            simpleAlgRes /= p1.size()*p2.size();
+            if(ui->cbBox1->isChecked()) results.at(l*projects.size() + k).push_back({"Levenshtein", levenshteinRes});
+            if(ui->cbBox2->isChecked())results.at(l*projects.size() + k).push_back({"SimpleAlg", simpleAlgRes});
+
             QTableWidgetItem *item = ui->taCompare->item(l,k);
             item= new QTableWidgetItem();
             ui->taCompare->setItem(l,k,item);
@@ -305,6 +320,12 @@ void MainWindow::onTableClicked(int x, int y )
     this->xParam = x;
     this->yParam = y;
 
+    std::string resultString;
+    for(auto& result: results.at(x*projects.size() + y)){   //I think x and y are swapped
+        resultString += result.first + ": ";
+        resultString += std::to_string(result.second * 100) + '\n';
+    }
+    ui->teResults->setText(resultString.c_str());
 }
 void MainWindow::onButtonClicked(int opt)
 {
