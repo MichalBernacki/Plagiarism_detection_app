@@ -95,6 +95,7 @@ MainWindow::MainWindow(QWidget *parent) :
     stateCompare->addTransition(this, SIGNAL(error(QString)), stateError);
     //connect(ui->taCompare->horizontalHeader(), SIGNAL(sectionClicked()), this, SLOT(Table_HeaderClick()) );
     stateCompare->addTransition(ui->pbOpen,SIGNAL(clicked(bool)),stateClear);
+    stateCompare->addTransition(ui->pbStart,SIGNAL(clicked(bool)),stateChoose);
     stateCompare->addTransition(ui->taCompare, SIGNAL(cellClicked(int, int)), stateShow );
     connect(ui->taCompare, SIGNAL(cellClicked(int, int)), this, SLOT(onTableClicked(int, int)) );
 
