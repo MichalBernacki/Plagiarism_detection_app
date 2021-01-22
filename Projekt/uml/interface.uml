@@ -13,6 +13,8 @@
     Choose -right-> Compare : <b>this</b> choosed()
     Compare -down-> Error : <b>this</b> error("compare")
     Compare -right-> Show : <b>taCompare</b> cellClicked(int, int)
+    Compare -up-> Clean : <b>pbOpen</b> clicked(bool)
+    Clean -up-> Open : <b>this</b> cleared()
     Show -right-> Show : <b>taCompare</b> cellClicked(int, int)
 
     note top of Startup
@@ -77,6 +79,8 @@
     Error: <b>cbBox2</b> enabled <b>false</b>
     Error: <b>taCompare</b> enabled <b>false</b>
     Error: <b>state</b> entered() -> <b>this</b> errorOpen()
+
+    Clear: <b>state</b> entered() -> <b>this</b> clear()
     
     Show: <b>frResult</b> enabled <b>true</b>
     Show: <b>state</b> entered() -> <b>this</b> showResult()
