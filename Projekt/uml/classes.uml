@@ -1,0 +1,62 @@
+@startuml
+
+    NotADirectory -- Project
+
+    
+    claSS NotADirectory {
+        + char* what()
+    }
+
+    class Project {
+        - std::vector<File> m_Files
+        - std::string m_Name
+        - std::string m_Path
+        
+        + Project(const std::string& path)
+        
+        + std::vector<File>& GetFiles()
+        + std::string GetName()
+        + std::string GetPath()
+       
+        + bool operator==( const Project &other )        
+    }
+    
+    
+    class File {
+        + File(std::filesystem::path path)
+
+        + std::string m_Name
+        + std::string m_Path
+        + std::string m_OriginalContent
+    }
+    
+    class Prepare {
+        + Prepare(const std::string &filePath)
+        + void removeEmptyLines(std::string &str)
+        + void removeKeywords(std::string &str)
+        + std::set<std::string> keywords
+        + void DeleteComments(std::string &fl)
+
+        - const std::string newline
+        - const std::string comstart
+        - const std::string slcom
+        - const std::string comend
+    }
+    
+    class LevenshteinDistance
+    {
+        
+        + LevenshteinDistance()
+        + float compare(std::string s1, std::string s2)
+    }
+    
+    class SimpleAlg
+    {
+        + SimpleAlg()
+        + float compare(std::string s1, std::string s2)
+    }
+    
+    note left of Project : Also have:\nhash function\nexception for non directory file
+    note left of NotADirectory : extends std:exception
+
+@enduml
