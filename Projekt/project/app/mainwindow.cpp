@@ -99,6 +99,13 @@ MainWindow::MainWindow(QWidget *parent) :
     stateCompare->addTransition(ui->taCompare, SIGNAL(cellClicked(int, int)), stateShow );
     connect(ui->taCompare, SIGNAL(cellClicked(int, int)), this, SLOT(onTableClicked(int, int)) );
 
+    stateCompare->assignProperty(ui->pbStart, "enabled", false);
+    stateStartup->assignProperty(ui->taCompare, "enabled", false);
+    stateCompare->assignProperty(ui->cbBox1, "enabled", false);
+    stateCompare->assignProperty(ui->cbBox2, "enabled", false);
+    stateCompare->assignProperty(ui->cbBox3, "enabled", false);
+    stateCompare->assignProperty(ui->cbBox4, "enabled", false);
+    stateCompare->assignProperty(ui->cbBox5, "enabled", false);
     //połączenie sygnały ze slotem a potem wypisanie
     // wartości wewnątrz slotu
     //todo : sprawdzić czy da się to ogarnąć dla stanu
