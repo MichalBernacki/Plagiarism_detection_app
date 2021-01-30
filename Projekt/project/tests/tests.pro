@@ -7,7 +7,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES +=  tst_test.cpp
-
+QMAKE_CXXFLAGS += -std=c++17
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../utils/release/ -lutils
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../utils/debug/ -lutils
 else:unix: LIBS += -L$$OUT_PWD/../utils/ -lutils
