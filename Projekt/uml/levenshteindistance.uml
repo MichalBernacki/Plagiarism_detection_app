@@ -1,0 +1,45 @@
+@startuml
+
+start 
+
+	:**n** as size of first string **s1**;
+	:**m** as size of second string **s2**;
+	:Declarate **d[n+1][m+1]**;
+    
+    :i=1;
+    while (i<=n) is (true)
+		:d[i][0]=i;
+      	:i++;
+	endwhile (false)
+		
+    :j=1;
+    while (j<=m) is (true)
+		:d[0][j]=j;
+      	:j++;
+	endwhile (false)
+    
+    :i=1;
+    while (i<=n) is (true)
+		:j=1;
+    	while (j<=m) is (true)
+			if (s1[i-1]==s2[j-1]) then (true)
+  				:cost = 0;
+			else (false)
+  				:cost = 1;
+			endif
+            
+            :d[i][j] = min( d[i-1][j] + 1 , d[i][j-1] + 1, d[i-1][j-1] + cost);
+            
+      		:j++;
+		endwhile (false)
+        
+      	:i++;
+	endwhile (false)
+
+	
+	
+	:return **1 - d[n][m] / max(n,m) **;
+
+stop
+
+@enduml

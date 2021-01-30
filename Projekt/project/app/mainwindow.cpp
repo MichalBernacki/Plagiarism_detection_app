@@ -49,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     stateStartup->assignProperty(ui->frResult, "enabled", false);
     connect(stateOpen, SIGNAL(entered()), this, SLOT(open()));
     stateOpen->addTransition(this, SIGNAL(error(QString)), stateError);
+    connect(this, SIGNAL(error(QString)), this, SLOT(errorFunction(QString)));
     stateOpen->addTransition(this, SIGNAL(opened()), stateView);
 
 
@@ -63,7 +64,7 @@ MainWindow::MainWindow(QWidget *parent) :
     stateError->assignProperty(ui->cbBox5, "enabled", false);
     stateError->assignProperty(ui->taCompare, "enabled", false);
 
-    connect(stateError, SIGNAL(entered()), this, SLOT(errorFunction()));
+    //connect(stateError, SIGNAL(entered()), this, SLOT(errorFunction()));
     stateError->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
 
 
@@ -92,7 +93,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //COMPARE
     stateCompare->assignProperty(ui->taCompare, "enabled", true);
     connect(stateCompare, SIGNAL(entered()), this, SLOT(compare()));
-    stateCompare->addTransition(this, SIGNAL(error(QString)), stateError);
+    //stateCompare->addTransition(this, SIGNAL(error(QString)), stateError);
     //connect(ui->taCompare->horizontalHeader(), SIGNAL(sectionClicked()), this, SLOT(Table_HeaderClick()) );
     stateCompare->addTransition(ui->pbOpen,SIGNAL(clicked(bool)),stateClear);
     stateCompare->addTransition(ui->pbStart,SIGNAL(clicked(bool)),stateChoose);
@@ -137,7 +138,6 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::open(){
-
     QFileDialog w;
     w.setFileMode(QFileDialog::DirectoryOnly);
     w.setOption(QFileDialog::DontUseNativeDialog,true);
@@ -164,13 +164,11 @@ void MainWindow::open(){
             projects.emplace(filepath.toStdString());
         }catch(const NotADirectory& e){
             std::cerr<<e.what()<<'\n';//best to just ignore it
+            return;
         }
         catch (const std::exception& e) {
-            emit error(e.what());   //works only if error is not a state, but a function
-                                    //can also try to build-up an error state, or error message
-                                    //and send it afterwards,
-                                    //decide whether to discard
-                                    //all projects, or just invalid ones
+            emit error(e.what()); //emit error with particular string as a message in message box
+            return;
         }
     }
     emit opened();
@@ -188,10 +186,12 @@ void MainWindow::checkChoose(){
         emit choosed();
 }
 
-void MainWindow::errorFunction(){
-    //QMessageBOX
-    std::cerr<<"I errored!\n";
-    //TODO: Wyswietlic MessageBox co poszlo nie tak z otwieraniem katalogu i plikow w nim
+void MainWindow::errorFunction(QString info){
+    QString errorMsg = "Program error\n\n" + info +"\n";
+    QMessageBox::information( this, "Error", errorMsg, QMessageBox::Ok );
+    std::cerr << errorMsg.toStdString();
+    std::cerr << "\n";
+
 }
 
 
@@ -203,7 +203,6 @@ void MainWindow::clear(){
 
 
 void MainWindow::compare(){
-    //emit error("compare");
     int l = 0;
     int k = 0;
     for (auto project:projects)

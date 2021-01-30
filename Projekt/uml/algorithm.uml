@@ -1,0 +1,46 @@
+@startuml
+
+start 
+
+:Create variable for plagiarism percent\n**percent=0**;
+:Create variable for number of comparison\n**num_of_cmp=0**;
+
+repeat
+
+  	if (Remove comments checked?) is (yes) then
+		:DeleteComments();
+	else (no)
+	endif
+
+	if (Remove keywords checked?) is (yes) then
+		:removeKeywords();
+	else (no)
+	endif
+
+	if (Remove empty lines checked?) is (yes) then
+		:removeEmptyLines();
+	else (no)
+	endif
+    
+    
+    if (Levenshte in Distance algorithm checked?) is (yes) then
+    	:num_of_cmp++;
+		:LevenshteinDistance l{};
+    	:percent += l.compare();
+	else (no)
+	endif
+    
+    if (Simple algorithm checked?) is (yes) then
+    	:num_of_cmp++;
+		:SimpleAlg l{};
+    	:percent += l.compare();
+	else (no)
+	endif    
+    
+repeat while (next pair?) is (yes)
+->no;
+
+:Calculate average percent for whole project\n**percent /= num_of_cmp**;
+
+stop
+@enduml
