@@ -6,17 +6,18 @@
     Open -right-> View : <b>this</b> opened()
     Open -left-> Error : <b>this</b> error(QString)
     View -left-> Open : <b>pbOpen</b> clicked(bool)
+    View -up-> Clear : <b>pbClear</b> clicked(bool)
     View -right-> Choose : <b>pbStart</b> clicked(bool)
     Compare -left-> View : <b>pbStart</b> clicked(bool)
     Choose -left-> View : <b>this</b> mustChoose()
     Choose -right-> Compare : <b>this</b> choosed()
     
     Compare -right-> Show : <b>taCompare</b> cellClicked(int, int)
-    Compare -up-> Clear : <b>pbOpen</b> clicked(bool)
-    Clear -up-> Open : <b>this</b> cleared()
+    Compare -up-> Clear : <b>pbClear</b> clicked(bool)
+    Clear -up-> Startup : <b>this</b> cleared()
     Show -right-> Show : <b>taCompare</b> cellClicked(int, int)
 	Show -left-> View : <b>pbStart</b> clicked(bool)
-	Show -left-> Clear : <b>pbOpen</b> clicked(bool)
+	Show -left-> Clear : <b>pbClear</b> clicked(bool)
     note top of Startup
     - we probably will have more chooseBox than 2
     end note
@@ -71,7 +72,7 @@
     
     Compare: <b>taCompare</b> enabled <b>true</b>
     Compare: <b>state</b> entered() -> <b>this</b> compare()
-	Compare: <b>pbOpen</b> enabled <b>true</b>
+	Compare: <b>pbOpen</b> enabled <b>false</b>
     Compare: <b>pbStart</b> enabled <b>true</b>
     Compare: <b>pbStart</b> text <b>"Return"</b>
     Compare: <b>taCompare</b> enabled <b>true</b>
