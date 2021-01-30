@@ -1,0 +1,32 @@
+@startuml
+
+start 
+
+:Create stream for first file **iis1**;
+:Create stream for second file **iis2**;
+:Create set for lines from f2 **set2**;
+
+repeat
+	:getline(iss2,line);
+	:set2.insert(line);
+repeat while (more lines in iis2?) is (yes)
+
+:Create same line counter **sameLines**;
+:Create all lines counter **lineCounter**;
+:Create set for lines from f2 **set2**;
+
+repeat
+	:getline(iss1,line);
+	if (line in set2) is (yes) then
+    	:sameLines++;
+   	else (no)
+    endif
+    
+    :lineCounter++;
+repeat while (more lines in iis1?) is (yes)
+
+:return **sameLines/linesCounter**;
+
+stop
+
+@enduml
