@@ -4,12 +4,15 @@
 #include "prepare.h"
 #include "levenshteindistance.h"
 #include "simplealg.h"
-
+#include "File.h"
+#include "Project.h"
 class Test : public QObject
 {
     Q_OBJECT
 
 private slots:
+
+    //================== TESTS FOR PREPARE
 
     void test_removeEmptyLines()
     {
@@ -45,6 +48,9 @@ private slots:
          QVERIFY(p.keywords.empty()==false);
          QVERIFY(p.keywords.size()==63);
      }
+
+     //================== TESTS FOR LEVENSHTEINDISTANCE
+
      void test_levenshteindistanceOne()
      {
          std::string s1="#include <iostream>\n\nint main()\n{\nstd::cout<<\"Hello World!\";\n}";
@@ -68,6 +74,8 @@ private slots:
          float res=ld.compare(s1,s2);
          QCOMPARE(res,(float)0.6);
      }
+     //================== TESTS FOR SIMPLEALG
+
     void test_simplealgOne()
     {
         std::string s1="#include <iostream>\n\nint main()\n{\nstd::cout<<\"Hello World!\";\n}";
@@ -101,6 +109,42 @@ private slots:
         QCOMPARE(res,(float)0.25);
     }
 
+    //================== TEST FOR FILE
+
+    void test_File()
+    {
+        File f{"../../test6/test6"};
+        //QVERIFY(f.m_Path=="/home/student/oop_2020_aplikacja_do_wykrywania_plagiatow_w_kodzie_zrodlowym/Projekt/test6/test6");
+        QVERIFY(f.m_Name=="test6");
+        QVERIFY(f.m_OriginalContent=="testowy\n");
+    }
+
+    //================== TESTS FOR PROJECT
+
+    void test_ProjectGetName()
+    {
+        Project p{"../../test4"};
+        QVERIFY(p.GetName()=="test4");
+    }
+    void test_ProjectOperator()
+    {
+        Project p{"../../test4"};
+        Project p1{"../../test4"};
+        QCOMPARE(p,p1);
+    }
+    void test_ProjectGetFilesOne()
+    {
+        Project p{"../../test4"};
+        std::vector<File> files=p.GetFiles();
+        QVERIFY(files.size()==9);
+    }
+    void test_ProjectGetFilesTwo()
+    {
+        Project p{"../../test4"};
+        std::vector<File> files=p.GetFiles();
+        File f=files.at(0);
+        QVERIFY(f.m_Name=="utils.cpp");
+    }
 };
 
 
