@@ -101,7 +101,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->taCompare, SIGNAL(cellClicked(int, int)), this, SLOT(onTableClicked(int, int)) );
 
     stateCompare->assignProperty(ui->pbStart, "enabled", false);
-    stateStartup->assignProperty(ui->taCompare, "enabled", false);
     stateCompare->assignProperty(ui->cbBox1, "enabled", false);
     stateCompare->assignProperty(ui->cbBox2, "enabled", false);
     stateCompare->assignProperty(ui->cbBox3, "enabled", false);
