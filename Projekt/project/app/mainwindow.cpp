@@ -44,7 +44,6 @@ MainWindow::MainWindow(QWidget *parent) :
     stateStartup->assignProperty(ui->cbBox5, "enabled", false);
     stateStartup->assignProperty(ui->frResult, "enabled", false);
     stateStartup->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
-    stateStartup->assignProperty(ui->frResult, "enabled", false);
     stateStartup->assignProperty(ui->pbClear, "enabled", false);
     stateStartup->assignProperty(ui->pbFileM1, "enabled", false);
     //OPEN
@@ -80,6 +79,7 @@ MainWindow::MainWindow(QWidget *parent) :
     stateView->assignProperty(ui->cbBox3, "enabled", true);
     stateView->assignProperty(ui->cbBox4, "enabled", true);
     stateView->assignProperty(ui->cbBox5, "enabled", true);
+    stateView->assignProperty(ui->frResult, "enabled", false);
 
     stateView->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
     stateView->addTransition(ui->pbStart, SIGNAL(clicked()), stateChoose);
