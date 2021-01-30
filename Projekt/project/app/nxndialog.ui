@@ -34,8 +34,28 @@
     <rect>
      <x>630</x>
      <y>150</y>
-     <width>521</width>
+     <width>491</width>
      <height>611</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="nFile1">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>100</y>
+     <width>511</width>
+     <height>41</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="nFile2">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>100</y>
+     <width>511</width>
+     <height>41</height>
     </rect>
    </property>
   </widget>
