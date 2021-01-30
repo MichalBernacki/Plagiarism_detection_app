@@ -6,9 +6,12 @@
 #include "file.h"
 
 struct Result{
+    Result(const std::string& name) : algorithmName{name}, value{0}, bestMatchValue{-1} {}
+
     std::string algorithmName;
     float value;
 
+    float bestMatchValue;
     File* bestMatch1 = nullptr;
     File* bestMatch2 = nullptr;
 };
