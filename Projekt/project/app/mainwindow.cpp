@@ -325,13 +325,13 @@ void MainWindow::onTableClicked(int y, int x )
 {
     this->xParam = x;
     this->yParam = y;
+    ui->lwResults->clear();
 
-    std::string resultString;
     for(auto& result: results.at(y*projects.size() + x)){
-        resultString += result.first + ": ";
-        resultString += std::to_string(result.second * 100) + '\n';
+        std::string resultString = result.first + ": ";
+        resultString += std::to_string(result.second * 100);
+        ui->lwResults->addItem(QString::fromStdString(resultString));
     }
-    ui->teResults->setText(resultString.c_str());
 }
 void MainWindow::onButtonClicked(int opt)
 {
