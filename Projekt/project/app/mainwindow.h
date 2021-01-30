@@ -30,7 +30,7 @@ signals:
     void mustChoose();
     void choosed();
     void cleared();
-    void toShow();
+    //void toShow();
 
 public slots:
     void open();
@@ -58,7 +58,7 @@ private:
 
     int xParam{};
     int yParam{};
-    int option{};
+    int resultIndex{};
 
 };
 

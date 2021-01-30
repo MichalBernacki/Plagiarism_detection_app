@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
     stateStartup->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
     stateStartup->assignProperty(ui->frResult, "enabled", false);
     stateStartup->assignProperty(ui->pbClear, "enabled", false);
+    stateStartup->assignProperty(ui->pbFileM1, "enabled", false);
     //OPEN
     connect(stateOpen, SIGNAL(entered()), this, SLOT(open()));
     stateOpen->addTransition(this, SIGNAL(error(QString)), stateError);
@@ -135,7 +136,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->lwResults, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(onListElemClicked(QListWidgetItem*)));
 
-    connect(this, SIGNAL(toShow()), this, SLOT(showResultsInPanel()));
+    connect(ui->pbFileM1, SIGNAL(clicked()), this, SLOT(showResultsInPanel()));
     stateShow->assignProperty(ui->pbStart, "text", "Return");
     stateShow->assignProperty(ui->frResult, "enabled", true);
     stateShow->addTransition(ui->pbClear,SIGNAL(clicked(bool)),stateClear);
@@ -338,7 +339,7 @@ void MainWindow::view()
 void MainWindow::showResultsInPanel()
 {
     //this->option = 22;
-    ndial = new NxNDialog(this, xParam, yParam, option, firstName, secondName);
+    ndial = new NxNDialog(this, xParam, yParam, resultIndex, firstName, secondName);
     ndial->setModal(true);
     ndial->exec();
 }
@@ -368,17 +369,6 @@ void MainWindow::onTableClicked(int y, int x )
 }
 void MainWindow::onListElemClicked(QListWidgetItem *item)
 {
-    this->option = 22;
-    QString str = item->text();
-    if(str.contains("Levenshtein")){
-        qDebug() << "jest leven";
-    }
-    else if(str.contains("SimpleAlg")){
-        qDebug() << "jest algo";
-    }
-
-
-    //emit(toShow());
+    this->resultIndex =  ui->lwResults->selectionModel()->currentIndex().row();
+    ui->pbFileM1->setEnabled("true");
 }
-
-
