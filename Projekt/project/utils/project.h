@@ -4,7 +4,7 @@
 #include <vector>
 #include <filesystem>
 
-#include "File.h"
+#include "file.h"
 
 class NotADirectory : public std::exception{
 public:
