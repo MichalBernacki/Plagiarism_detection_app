@@ -329,8 +329,8 @@ void MainWindow::onTableClicked(int y, int x )
     ui->lwResults->clear();
 
     for(auto& result: results.at(y*projects.size() + x)){
-        std::string resultString = result.first + ": ";
-        resultString += std::to_string(result.second * 100);
+        std::string resultString = result.algorithmName + ": ";
+        resultString += std::to_string(result.value * 100);
         ui->lwResults->addItem(QString::fromStdString(resultString));
     }
 }

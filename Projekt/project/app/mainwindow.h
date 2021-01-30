@@ -6,6 +6,7 @@
 #include <QButtonGroup>
 
 #include "project.h"
+#include "result.h"
 #include <unordered_set>
 
 namespace Ui {
@@ -48,7 +49,7 @@ private:
 
     QString fileName;
     std::unordered_set<Project> projects;
-    std::vector<std::vector<std::pair<std::string, float>>> results;
+    std::vector<std::vector<Result>> results;
 
     QButtonGroup* group;
 
