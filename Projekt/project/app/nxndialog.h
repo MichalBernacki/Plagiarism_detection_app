@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <string>
-#include "Project.h"
+#include "project.h"
 
 namespace Ui {
 class NxNDialog;

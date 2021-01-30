@@ -334,7 +334,7 @@ void MainWindow::onTableClicked(int y, int x )
         resultString += result.first + ": ";
         resultString += std::to_string(result.second * 100) + '\n';
     }
-    ui->teResults->setText(resultString.c_str());
+    ui->lwResults->addItem(QString::fromStdString(resultString));
 
     //todo: zamienić na dostarczoną przez Krzyśka funkcje
     std::unordered_set<Project>::iterator it = projects.begin();
