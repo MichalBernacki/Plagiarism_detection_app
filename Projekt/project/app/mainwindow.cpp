@@ -97,6 +97,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(ui->taCompare->horizontalHeader(), SIGNAL(sectionClicked()), this, SLOT(Table_HeaderClick()) );
     stateCompare->addTransition(ui->pbOpen,SIGNAL(clicked(bool)),stateClear);
     stateCompare->addTransition(ui->pbStart,SIGNAL(clicked(bool)),stateChoose);
+
     stateCompare->addTransition(ui->taCompare, SIGNAL(cellClicked(int, int)), stateShow );
     connect(ui->taCompare, SIGNAL(cellClicked(int, int)), this, SLOT(onTableClicked(int, int)) );
 
@@ -317,11 +318,11 @@ void MainWindow::view()
 void MainWindow::showResultsInPanel()
 {
     //this->option = 22;
-    ndial = new NxNDialog(this, xParam, yParam, option);
+    ndial = new NxNDialog(this, xParam, yParam, option, firstName);
     ndial->setModal(true);
     ndial->exec();
 }
-void MainWindow::onTableClicked(int x, int y )
+void MainWindow::onTableClicked(int y, int x )
 {
     this->xParam = x;
     this->yParam = y;
@@ -332,6 +333,13 @@ void MainWindow::onTableClicked(int x, int y )
         resultString += std::to_string(result.second * 100) + '\n';
     }
     ui->teResults->setText(resultString.c_str());
+    //chyba trzeba będzie poprawić wypisywanie rezultatów
+
+    std::unordered_set<Project>::iterator it = projects.begin();
+    std::advance(it, x);
+    Project p = *it;
+    firstName = p.GetName();
+
 }
 void MainWindow::onButtonClicked(int opt)
 {

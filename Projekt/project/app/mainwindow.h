@@ -49,6 +49,8 @@ private:
     QString fileName;
     std::unordered_set<Project> projects;
     std::vector<std::vector<std::pair<std::string, float>>> results;
+    std::string firstName;
+    std::string secondName;
 
     QButtonGroup* group;
 
