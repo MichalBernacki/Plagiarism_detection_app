@@ -369,8 +369,15 @@ void MainWindow::onTableClicked(int y, int x )
 void MainWindow::onListElemClicked(QListWidgetItem *item)
 {
     this->option = 22;
+    QString str = item->text();
+    if(str.contains("Levenshtein")){
+        qDebug() << "jest leven";
+    }
+    else if(str.contains("SimpleAlg")){
+        qDebug() << "jest algo";
+    }
 
-    qDebug() << item->text();
+
     //emit(toShow());
 }
 
