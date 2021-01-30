@@ -64,7 +64,6 @@ MainWindow::MainWindow(QWidget *parent) :
     stateError->assignProperty(ui->taCompare, "enabled", false);
     stateError->assignProperty(ui->pbClear, "enabled", false);
 
-    //connect(stateError, SIGNAL(entered()), this, SLOT(errorFunction()));
     stateError->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
 
 
@@ -112,27 +111,12 @@ MainWindow::MainWindow(QWidget *parent) :
     stateCompare->assignProperty(ui->cbBox5, "enabled", false);
     stateCompare->assignProperty(ui->pbClear, "enabled", true);
 
-    //połączenie sygnały ze slotem a potem wypisanie
-    // wartości wewnątrz slotu
-    //todo : sprawdzić czy da się to ogarnąć dla stanu
-
     //CLEAR
     connect(stateClear, SIGNAL(entered()), this, SLOT(clear()));
     stateClear->addTransition(this,SIGNAL(cleared()),stateStartup);
 
 
     //SHOW
-
-    /*group = new QButtonGroup(this);
-    group->addButton(ui->pbFileM1);
-    group->addButton(ui->pbFileM2);
-    //group->addButton(ui->pbFileM3);
-    //group->addButton(ui->pbFileM4);
-
-    group->setId(ui->pbFileM1, 0);
-    group->setId(ui->pbFileM2, 1);
-    //group->setId(ui->pbFileM3, 3);
-    //group->setId(ui->pbFileM4, 4);*/
 
     connect(ui->lwResults, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(onListElemClicked(QListWidgetItem*)));
 
@@ -354,7 +338,6 @@ void MainWindow::onTableClicked(int y, int x )
         ui->lwResults->addItem(QString::fromStdString(resultString));
     }
 
-    //todo: zamienić na dostarczoną przez Krzyśka funkcje
     std::unordered_set<Project>::iterator it = projects.begin();
     std::advance(it, x);
     Project firstProj = *it;
