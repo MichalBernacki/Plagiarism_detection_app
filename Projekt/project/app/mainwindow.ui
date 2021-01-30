@@ -279,14 +279,14 @@
              <item>
               <widget class="QCheckBox" name="cbBox1">
                <property name="text">
-                <string>Method I</string>
+                <string>Levenschtein</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QCheckBox" name="cbBox2">
                <property name="text">
-                <string>Method II</string>
+                <string>Simple Alg</string>
                </property>
               </widget>
              </item>
@@ -314,6 +314,13 @@
             </layout>
            </item>
           </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbClear">
+           <property name="text">
+            <string>Clear</string>
+           </property>
+          </widget>
          </item>
          <item>
           <spacer name="verticalSpacer">
