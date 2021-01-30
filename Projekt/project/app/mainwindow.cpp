@@ -122,7 +122,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //SHOW
 
-    group = new QButtonGroup(this);
+    /*group = new QButtonGroup(this);
     group->addButton(ui->pbFileM1);
     group->addButton(ui->pbFileM2);
     //group->addButton(ui->pbFileM3);
@@ -131,9 +131,9 @@ MainWindow::MainWindow(QWidget *parent) :
     group->setId(ui->pbFileM1, 0);
     group->setId(ui->pbFileM2, 1);
     //group->setId(ui->pbFileM3, 3);
-    //group->setId(ui->pbFileM4, 4);
+    //group->setId(ui->pbFileM4, 4);*/
 
-    connect(group, SIGNAL(buttonClicked(int)), this, SLOT(onButtonClicked(int)));
+    connect(ui->lwResults, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(onListElemClicked(QListWidgetItem*)));
 
     connect(this, SIGNAL(toShow()), this, SLOT(showResultsInPanel()));
     stateShow->assignProperty(ui->pbStart, "text", "Return");
@@ -366,11 +366,12 @@ void MainWindow::onTableClicked(int y, int x )
 
 
 }
-void MainWindow::onButtonClicked(int opt)
+void MainWindow::onListElemClicked(QListWidgetItem *item)
 {
-    this->option = opt;
-    //qDebug() << "button id: " << opt;
-    emit(toShow());
+    this->option = 22;
+
+    qDebug() << item->text();
+    //emit(toShow());
 }
 
 
