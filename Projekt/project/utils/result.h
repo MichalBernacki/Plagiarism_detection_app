@@ -12,8 +12,8 @@ struct Result{
     float value;
 
     float bestMatchValue;
-    File* bestMatch1 = nullptr;
-    File* bestMatch2 = nullptr;
+    const File* bestMatch1 = nullptr;
+    const File* bestMatch2 = nullptr;
 };
 
 #endif // RESULT_H
