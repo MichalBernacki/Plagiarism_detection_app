@@ -62,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
     stateError->assignProperty(ui->cbBox4, "enabled", false);
     stateError->assignProperty(ui->cbBox5, "enabled", false);
     stateError->assignProperty(ui->taCompare, "enabled", false);
+    stateError->assignProperty(ui->pbClear, "enabled", false);
 
     //connect(stateError, SIGNAL(entered()), this, SLOT(errorFunction()));
     stateError->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
