@@ -98,6 +98,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(ui->taCompare->horizontalHeader(), SIGNAL(sectionClicked()), this, SLOT(Table_HeaderClick()) );
     stateCompare->addTransition(ui->pbOpen,SIGNAL(clicked(bool)),stateClear);
     stateCompare->addTransition(ui->pbStart,SIGNAL(clicked(bool)),stateChoose);
+
     stateCompare->addTransition(ui->taCompare, SIGNAL(cellClicked(int, int)), stateShow );
     connect(ui->taCompare, SIGNAL(cellClicked(int, int)), this, SLOT(onTableClicked(int, int)) );
 
@@ -121,13 +122,13 @@ MainWindow::MainWindow(QWidget *parent) :
     group = new QButtonGroup(this);
     group->addButton(ui->pbFileM1);
     group->addButton(ui->pbFileM2);
-    group->addButton(ui->pbFileM3);
-    group->addButton(ui->pbFileM4);
+    //group->addButton(ui->pbFileM3);
+    //group->addButton(ui->pbFileM4);
 
-    group->setId(ui->pbFileM1, 1);
-    group->setId(ui->pbFileM2, 2);
-    group->setId(ui->pbFileM3, 3);
-    group->setId(ui->pbFileM4, 4);
+    group->setId(ui->pbFileM1, 0);
+    group->setId(ui->pbFileM2, 1);
+    //group->setId(ui->pbFileM3, 3);
+    //group->setId(ui->pbFileM4, 4);
 
     connect(group, SIGNAL(buttonClicked(int)), this, SLOT(onButtonClicked(int)));
 
@@ -318,7 +319,7 @@ void MainWindow::view()
 void MainWindow::showResultsInPanel()
 {
     //this->option = 22;
-    ndial = new NxNDialog(this, xParam, yParam, option);
+    ndial = new NxNDialog(this, xParam, yParam, option, firstName, secondName);
     ndial->setModal(true);
     ndial->exec();
 }
@@ -328,11 +329,24 @@ void MainWindow::onTableClicked(int y, int x )
     this->yParam = y;
     ui->lwResults->clear();
 
+    std::string resultString;
     for(auto& result: results.at(y*projects.size() + x)){
-        std::string resultString = result.first + ": ";
-        resultString += std::to_string(result.second * 100);
-        ui->lwResults->addItem(QString::fromStdString(resultString));
+        resultString += result.first + ": ";
+        resultString += std::to_string(result.second * 100) + '\n';
     }
+    ui->teResults->setText(resultString.c_str());
+
+    //todo: zamienić na dostarczoną przez Krzyśka funkcje
+    std::unordered_set<Project>::iterator it = projects.begin();
+    std::advance(it, x);
+    Project firstProj = *it;
+    firstName = firstProj.GetName();
+    std::unordered_set<Project>::iterator it2 = projects.begin();
+    std::advance(it2, y);
+    Project secProj = *it2;
+    secondName = secProj.GetName();
+
+
 }
 void MainWindow::onButtonClicked(int opt)
 {
