@@ -224,9 +224,9 @@ void MainWindow::compare(){
     results.clear();
     results.resize(projects.size()*projects.size());
 
-    for (auto project1:projects)
+    for (auto& project1:projects)
     {
-        for(auto project2:projects)
+        for(auto& project2:projects)
         {
             if(k==l)
             {
@@ -239,10 +239,10 @@ void MainWindow::compare(){
             float percent = 0;
             float num_of_cmp = 0;
 
-            auto p1 = project1.GetFiles();
-            auto p2 = project2.GetFiles();
-            for(auto file1: p1){
-                for(auto file2: p2)
+            auto& p1 = project1.GetFiles();
+            auto& p2 = project2.GetFiles();
+            for(auto& file1: p1){
+                for(auto& file2: p2)
                 {
                     std::string s1=file1.m_OriginalContent;
                     std::string s2=file2.m_OriginalContent;
