@@ -334,7 +334,7 @@ void MainWindow::onTableClicked(int y, int x )
     }
     ui->teResults->setText(resultString.c_str());
 
-
+    //todo: zamienić na dostarczoną przez Krzyśka funkcje
     std::unordered_set<Project>::iterator it = projects.begin();
     std::advance(it, x);
     Project firstProj = *it;

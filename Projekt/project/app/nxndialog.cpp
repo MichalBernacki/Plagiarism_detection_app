@@ -20,6 +20,10 @@ NxNDialog::NxNDialog( QWidget *parent, int x, int y, int opt, std::string firstN
     qDebug() << "x: " << xParam <<"y: " << yParam << "O: "<< opt;
     qDebug() << "fname: " << QString::fromStdString(firstName);
     qDebug() << "sname: " << QString::fromStdString(secondName);
+    ui->teFile1->setText(firstName.c_str());
+    ui->teFile2->setText(secondName.c_str());
+
+
 
 }
 
