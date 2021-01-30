@@ -33,7 +33,7 @@ signals:
 public slots:
     void open();
     void checkChoose();
-    void errorFunction();
+    void errorFunction(QString);
     void compare();
     void view();
     void clear();

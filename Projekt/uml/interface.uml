@@ -2,19 +2,18 @@
 
     [*] -down-> Startup
     Startup -down-> Open : <b>pbOpen</b> clicked(bool)
-    Error -up-> Open : <b>pbOpen</b> clicked(bool)
+    Error -right-> Open : <b>pbOpen</b> clicked(bool)
     Open -right-> View : <b>this</b> opened()
-    Open -down-> Error : <b>this</b> error("open")
+    Open -left-> Error : <b>this</b> error(QString)
     View -left-> Open : <b>pbOpen</b> clicked(bool)
     View -right-> Choose : <b>pbStart</b> clicked(bool)
     Compare -left-> Choose : <b>pbStart</b> clicked(bool)
-    Compare -left-> Open : <b>pbOpen</b> clicked(bool)
     Choose -left-> View : <b>this</b> mustChoose()
     Choose -right-> Compare : <b>this</b> choosed()
-    Compare -down-> Error : <b>this</b> error("compare")
+    
     Compare -right-> Show : <b>taCompare</b> cellClicked(int, int)
-    Compare -up-> Clean : <b>pbOpen</b> clicked(bool)
-    Clean -up-> Open : <b>this</b> cleared()
+    Compare -up-> Clear : <b>pbOpen</b> clicked(bool)
+    Clear -up-> Open : <b>this</b> cleared()
     Show -right-> Show : <b>taCompare</b> cellClicked(int, int)
 
     note top of Startup
@@ -37,14 +36,14 @@
     - compare files with implemented alghoritms
     - selected file name is used
     end note
-
-    note bottom of Error
-    - show <b>QMessageBox</b> and go back to <b>Open</b> state
-    end note
     
     note bottom of Show
         - show percent results for all methods separetly
         - activate buttons which will show most similar file
+    end note
+    
+    note bottom of Error
+    	- show <b>QMessageBox</b> and go back to <b>Open</b> state
     end note
 
 
@@ -60,6 +59,7 @@
 
     Open: <b>frResult</b> enabled <b>false</b>
     Open: <b>state</b> entered() -> <b>this</b> open()
+    Open: <b>emit</b> error() -> <b>this</b> errorFunction(QString)
 
     View: <b>pbOpen</b> enabled <b>true</b>
     View: <b>pbStart</b> enabled <b>true</b>
@@ -78,7 +78,6 @@
     Error: <b>cbBox1</b> enabled <b>false</b>
     Error: <b>cbBox2</b> enabled <b>false</b>
     Error: <b>taCompare</b> enabled <b>false</b>
-    Error: <b>state</b> entered() -> <b>this</b> errorOpen()
 
     Clear: <b>state</b> entered() -> <b>this</b> clear()
     
