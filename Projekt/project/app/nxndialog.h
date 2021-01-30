@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <string>
+#include "Project.h"
 
 namespace Ui {
 class NxNDialog;
@@ -13,7 +14,7 @@ class NxNDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit NxNDialog(QWidget *parent, int x, int y, int opt, std::string firstName );
+    explicit NxNDialog(QWidget *parent, int x, int y, int opt,  std::string firstName, std::string secondName);
     ~NxNDialog();
 
 private slots:
@@ -28,6 +29,8 @@ private:
     int yParam;
     int opt;
     std::string firstName;
+    std::string secondName;
+
 };
 
 #endif // NXNDIALOG_H

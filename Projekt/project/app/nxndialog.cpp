@@ -7,17 +7,19 @@
 #include <QDebug>
 #include <QTableView>
 
-NxNDialog::NxNDialog( QWidget *parent, int x, int y, int opt, std::string firstName) :
+NxNDialog::NxNDialog( QWidget *parent, int x, int y, int opt, std::string firstName, std::string secondName ):
     QDialog(parent),
     ui(new Ui::NxNDialog),
     xParam(x),
     yParam(y),
     opt(opt),
-    firstName(firstName)
+    firstName(firstName),
+    secondName(secondName)
 {
     ui->setupUi(this);
     qDebug() << "x: " << xParam <<"y: " << yParam << "O: "<< opt;
     qDebug() << "fname: " << QString::fromStdString(firstName);
+    qDebug() << "sname: " << QString::fromStdString(secondName);
 
 }
 
