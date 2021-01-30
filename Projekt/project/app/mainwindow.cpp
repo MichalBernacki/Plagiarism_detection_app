@@ -3,6 +3,7 @@
 #include "levenshteindistance.h"
 #include "simplealg.h"
 #include "prepare.h"
+#include "utils.h"
 #include <iostream>
 #include <QStateMachine>
 #include <QHistoryState>
