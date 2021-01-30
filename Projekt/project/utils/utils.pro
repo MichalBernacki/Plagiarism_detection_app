@@ -21,6 +21,7 @@ SOURCES += \
     levenshteindistance.cpp \
     prepare.cpp \
     project.cpp \
+    result.cpp \
     simplealg.cpp \
     utils.cpp
 
@@ -29,6 +30,7 @@ HEADERS += \
     levenshteindistance.h \
     prepare.h \
     project.h \
+    result.h \
     simplealg.h \
     utils.h
 

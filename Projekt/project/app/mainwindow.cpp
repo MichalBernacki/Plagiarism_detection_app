@@ -222,7 +222,7 @@ void MainWindow::compare(){
     results.clear();
     results.resize(projects.size()*projects.size());
 
-    for (auto project:projects)
+    for (auto project1:projects)
     {
         for(auto project2:projects)
         {
@@ -231,19 +231,19 @@ void MainWindow::compare(){
                 k++;
                 continue;
             }
-            std::vector p1 = project.GetFiles();
-            std::vector p2 = project2.GetFiles();
+            auto p1 = project1.GetFiles();
+            auto p2 = project2.GetFiles();
 
             float levenshteinRes = 0;
             float simpleAlgRes = 0;
 
             float percent = 0;
             float num_of_cmp = 0;
-            for(int i=0; i<p1.size(); i++)
-                for(int j=0; j<p2.size(); j++)
+            for(auto file1: p1){
+                for(auto file2: p2)
                 {
-                    std::string s1=p1.at(i).m_OriginalContent;
-                    std::string s2=p2.at(j).m_OriginalContent;
+                    std::string s1=file1.m_OriginalContent;
+                    std::string s2=file2.m_OriginalContent;
                     Prepare p{"../../project/app/cppkeywords.txt"};
                     if(ui->cbBox5->isChecked())
                     {
@@ -282,6 +282,7 @@ void MainWindow::compare(){
                         percent+=res;
                     }
                 }
+            }
             percent/=num_of_cmp;
             levenshteinRes /= p1.size()*p2.size();
             simpleAlgRes /= p1.size()*p2.size();
@@ -335,12 +336,11 @@ void MainWindow::onTableClicked(int y, int x )
     this->yParam = y;
     ui->lwResults->clear();
 
-    std::string resultString;
     for(auto& result: results.at(y*projects.size() + x)){
-        resultString += result.first + ": ";
-        resultString += std::to_string(result.second * 100) + '\n';
+        std::string resultString = result.algorithmName + ": ";
+        resultString += std::to_string(result.value * 100);
+        ui->lwResults->addItem(QString::fromStdString(resultString));
     }
-    ui->lwResults->addItem(QString::fromStdString(resultString));
 
     //todo: zamienić na dostarczoną przez Krzyśka funkcje
     std::unordered_set<Project>::iterator it = projects.begin();
