@@ -42,19 +42,15 @@ MainWindow::MainWindow(QWidget *parent) :
     stateStartup->assignProperty(ui->cbBox4, "enabled", false);
     stateStartup->assignProperty(ui->cbBox5, "enabled", false);
     stateStartup->assignProperty(ui->frResult, "enabled", false);
-
     stateStartup->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
-
+    stateStartup->assignProperty(ui->frResult, "enabled", false);
 
     //OPEN
-    stateStartup->assignProperty(ui->frResult, "enabled", false);
     connect(stateOpen, SIGNAL(entered()), this, SLOT(open()));
     stateOpen->addTransition(this, SIGNAL(error(QString)), stateError);
     connect(this, SIGNAL(error(QString)), this, SLOT(errorFunction(QString)));
     stateOpen->addTransition(this, SIGNAL(opened()), stateView);
     stateOpen->assignProperty(ui->pbStart, "text", "Start");
-
-
 
     //ERROR
     stateError->assignProperty(ui->pbOpen, "enabled", true);

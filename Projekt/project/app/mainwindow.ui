@@ -120,14 +120,14 @@
              <item>
               <widget class="QCheckBox" name="cbBox1">
                <property name="text">
-                <string>Method I</string>
+                <string>Levenschtein</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QCheckBox" name="cbBox2">
                <property name="text">
-                <string>Method II</string>
+                <string>Simple Alg</string>
                </property>
               </widget>
              </item>
