@@ -300,7 +300,7 @@ void MainWindow::compare(){
             levenshteinRes.value /= p1.size()*p2.size();
             simpleAlgRes.value /= p1.size()*p2.size();
             if(ui->cbBox1->isChecked()) results.at(l*projects.size() + k).push_back(levenshteinRes);
-            if(ui->cbBox2->isChecked())results.at(l*projects.size() + k).push_back(simpleAlgRes);
+            if(ui->cbBox2->isChecked()) results.at(l*projects.size() + k).push_back(simpleAlgRes);
 
             QTableWidgetItem *item = ui->taCompare->item(l,k);
             item= new QTableWidgetItem();
@@ -338,8 +338,7 @@ void MainWindow::view()
 
 void MainWindow::showResultsInPanel()
 {
-    //this->option = 22;
-    ndial = new NxNDialog(this, xParam, yParam, resultIndex, firstName, secondName);
+    ndial = new NxNDialog(this, xParam, yParam, resultIndex, results[yParam*projects.size() + xParam][resultIndex]);
     ndial->setModal(true);
     ndial->exec();
 }
