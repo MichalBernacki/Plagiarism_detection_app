@@ -7,29 +7,27 @@
     Open -left-> Error : <b>this</b> error(QString)
     View -left-> Open : <b>pbOpen</b> clicked(bool)
     View -up-> Clear : <b>pbClear</b> clicked(bool)
-    View -right-> Choose : <b>pbStart</b> clicked(bool)
+    View -down-> Choose : <b>pbStart</b> clicked(bool)
     Compare -left-> View : <b>pbStart</b> clicked(bool)
-    Choose -left-> View : <b>this</b> mustChoose()
-    Choose -right-> Compare : <b>this</b> choosed()
+    Choose -up-> View : <b>this</b> mustChoose()
+    Choose -up-> Compare : <b>this</b> choosed()
     
     Compare -right-> Show : <b>taCompare</b> cellClicked(int, int)
     Compare -up-> Clear : <b>pbClear</b> clicked(bool)
-    Clear -up-> Startup : <b>this</b> cleared()
+    
     Show -right-> Show : <b>taCompare</b> cellClicked(int, int)
-	Show -left-> View : <b>pbStart</b> clicked(bool)
-	Show -left-> Clear : <b>pbClear</b> clicked(bool)
-    note top of Startup
-    - we probably will have more chooseBox than 2
-    end note
+    Show -left-> Clear : <b>pbClear</b> clicked(bool)
+    
+    Clear -left-> Startup : <b>this</b> cleared()
 
-    note top of Open 
+    note bottom of Open 
     - open dialog for load directory
     - load directory
     - first level subdirectories should be separate projects
     - should store path in some variable
     end note
 
-    note top of Choose 
+    note bottom of Choose 
     - user must choose at least one alghoritms
     - if didn't choose show message box and back to <b>View</b>
     end note
@@ -45,19 +43,21 @@
     end note
     
     note bottom of Error
-    	- show <b>QMessageBox</b> and go back to <b>Open</b> state
+        - show <b>QMessageBox</b> and go back to <b>Open</b> state
     end note
 
 
     Startup: <b>pbOpen</b> enabled <b>true</b>
     Startup: <b>pbStart</b> enabled <b>false</b>
+    Startup: <b>pbClear</b> enabled <b>false</b>
     Startup: <b>taCompare</b> enabled <b>false</b>
     Startup: <b>cbBox1</b> enabled <b>false</b>
     Startup: <b>cbBox2</b> enabled <b>false</b>
+    Startup: <b>cbBox3</b> enabled <b>false</b>
+    Startup: <b>cbBox4</b> enabled <b>false</b>
+    Startup: <b>cbBox5</b> enabled <b>false</b>
     Startup: <b>frResult</b> enabled <b>false</b>
     Startup: <b>leLabel</b> text <b>Load directory to start...</b>
-    
-   
 
     Open: <b>frResult</b> enabled <b>false</b>
     Open: <b>state</b> entered() -> <b>this</b> open()
@@ -65,25 +65,36 @@
 
     View: <b>pbOpen</b> enabled <b>true</b>
     View: <b>pbStart</b> enabled <b>true</b>
+    View: <b>pbStart</b> enabled <b>true</b>
     View: <b>taCompare</b> enabled <b>false</b>
     View: <b>cbBox1</b> enabled <b>true</b>
     View: <b>cbBox2</b> enabled <b>true</b>
+    View: <b>cbBox3</b> enabled <b>true</b>
+    View: <b>cbBox4</b> enabled <b>true</b>
+    View: <b>cbBox5</b> enabled <b>true</b>
     
     
     Compare: <b>taCompare</b> enabled <b>true</b>
     Compare: <b>state</b> entered() -> <b>this</b> compare()
-	Compare: <b>pbOpen</b> enabled <b>false</b>
+    Compare: <b>pbOpen</b> enabled <b>false</b>
     Compare: <b>pbStart</b> enabled <b>true</b>
     Compare: <b>pbStart</b> text <b>"Return"</b>
     Compare: <b>taCompare</b> enabled <b>true</b>
     Compare: <b>cbBox1</b> enabled <b>false</b>
     Compare: <b>cbBox2</b> enabled <b>false</b>
+    Compare: <b>cbBox3</b> enabled <b>false</b>
+    Compare: <b>cbBox4</b> enabled <b>false</b>
+    Compare: <b>cbBox5</b> enabled <b>false</b>
     Choose: <b>state</b> entered() -> <b>this</b> checkChoose()
 
     Error: <b>pbOpen</b> enabled <b>true</b>
     Error: <b>pbStart</b> enabled <b>false</b>
+    Error: <b>pbClear</b> enabled <b>false</b>
     Error: <b>cbBox1</b> enabled <b>false</b>
     Error: <b>cbBox2</b> enabled <b>false</b>
+    Error: <b>cbBox3</b> enabled <b>false</b>
+    Error: <b>cbBox4</b> enabled <b>false</b>
+    Error: <b>cbBox5</b> enabled <b>false</b>
     Error: <b>taCompare</b> enabled <b>false</b>
 
     Clear: <b>state</b> entered() -> <b>this</b> clear()
