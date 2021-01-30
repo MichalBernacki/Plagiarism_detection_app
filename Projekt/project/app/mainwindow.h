@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "nxndialog.h"
 #include <QButtonGroup>
+#include <QListWidgetItem>
 
 #include "project.h"
 #include "result.h"
@@ -29,7 +30,7 @@ signals:
     void mustChoose();
     void choosed();
     void cleared();
-    void toShow();
+    //void toShow();
 
 public slots:
     void open();
@@ -40,7 +41,7 @@ public slots:
     void clear();
     void showResultsInPanel();
     void onTableClicked(int, int );
-    void onButtonClicked(int );
+    void onListElemClicked(QListWidgetItem *item);
 
 
 private:
@@ -53,11 +54,11 @@ private:
     std::string secondName;
     std::string firstName;
 
-    QButtonGroup* group;
+   // QButtonGroup* group;
 
     int xParam{};
     int yParam{};
-    int option{};
+    int resultIndex{};
 
 };
 
