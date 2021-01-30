@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     auto stateShow = new QState{stateMachine};
     auto stateClear = new QState{stateMachine};
     //STARTUP
+    stateStartup->assignProperty(ui->pbStart, "text", "Start");
     stateStartup->assignProperty(ui->pbOpen, "enabled", true);
     stateStartup->assignProperty(ui->pbStart, "enabled", false);
     stateStartup->assignProperty(ui->taCompare, "enabled", false);
@@ -42,18 +43,15 @@ MainWindow::MainWindow(QWidget *parent) :
     stateStartup->assignProperty(ui->cbBox4, "enabled", false);
     stateStartup->assignProperty(ui->cbBox5, "enabled", false);
     stateStartup->assignProperty(ui->frResult, "enabled", false);
-
     stateStartup->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
-
-
-    //OPEN
     stateStartup->assignProperty(ui->frResult, "enabled", false);
+    stateStartup->assignProperty(ui->pbClear, "enabled", false);
+    //OPEN
     connect(stateOpen, SIGNAL(entered()), this, SLOT(open()));
     stateOpen->addTransition(this, SIGNAL(error(QString)), stateError);
     connect(this, SIGNAL(error(QString)), this, SLOT(errorFunction(QString)));
     stateOpen->addTransition(this, SIGNAL(opened()), stateView);
-
-
+    stateOpen->assignProperty(ui->pbStart, "text", "Start");
 
     //ERROR
     stateError->assignProperty(ui->pbOpen, "enabled", true);
@@ -73,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(stateView, SIGNAL(entered()), this, SLOT(view()));
     stateView->assignProperty(ui->pbOpen, "enabled", true);
     stateView->assignProperty(ui->pbStart, "enabled", true);
+    stateView->assignProperty(ui->pbStart, "text", "Start");
     stateView->assignProperty(ui->taCompare, "enabled", false);
     stateView->assignProperty(ui->cbBox1, "enabled", true);
     stateView->assignProperty(ui->cbBox2, "enabled", true);
@@ -82,6 +81,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     stateView->addTransition(ui->pbOpen, SIGNAL(clicked()), stateOpen);
     stateView->addTransition(ui->pbStart, SIGNAL(clicked()), stateChoose);
+    stateView->addTransition(ui->pbClear,SIGNAL(clicked(bool)),stateClear);
+
     //stateView->addTransition(ui->pbStart, SIGNAL(clicked()), stateShow);
 
 
@@ -96,25 +97,26 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(stateCompare, SIGNAL(entered()), this, SLOT(compare()));
     //stateCompare->addTransition(this, SIGNAL(error(QString)), stateError);
     //connect(ui->taCompare->horizontalHeader(), SIGNAL(sectionClicked()), this, SLOT(Table_HeaderClick()) );
-    stateCompare->addTransition(ui->pbOpen,SIGNAL(clicked(bool)),stateClear);
-    stateCompare->addTransition(ui->pbStart,SIGNAL(clicked(bool)),stateChoose);
-
+    stateCompare->addTransition(ui->pbClear,SIGNAL(clicked(bool)),stateClear);
+    stateCompare->addTransition(ui->pbStart,SIGNAL(clicked(bool)),stateView);
     stateCompare->addTransition(ui->taCompare, SIGNAL(cellClicked(int, int)), stateShow );
     connect(ui->taCompare, SIGNAL(cellClicked(int, int)), this, SLOT(onTableClicked(int, int)) );
-
-    stateCompare->assignProperty(ui->pbStart, "enabled", false);
+    stateCompare->assignProperty(ui->pbOpen,"enabled",false);
+    stateCompare->assignProperty(ui->pbStart, "enabled", true);
     stateCompare->assignProperty(ui->cbBox1, "enabled", false);
     stateCompare->assignProperty(ui->cbBox2, "enabled", false);
     stateCompare->assignProperty(ui->cbBox3, "enabled", false);
     stateCompare->assignProperty(ui->cbBox4, "enabled", false);
     stateCompare->assignProperty(ui->cbBox5, "enabled", false);
+    stateCompare->assignProperty(ui->pbClear, "enabled", true);
+
     //połączenie sygnały ze slotem a potem wypisanie
     // wartości wewnątrz slotu
     //todo : sprawdzić czy da się to ogarnąć dla stanu
 
     //CLEAR
     connect(stateClear, SIGNAL(entered()), this, SLOT(clear()));
-    stateClear->addTransition(this,SIGNAL(cleared()),stateOpen);
+    stateClear->addTransition(this,SIGNAL(cleared()),stateStartup);
 
 
     //SHOW
@@ -133,8 +135,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(group, SIGNAL(buttonClicked(int)), this, SLOT(onButtonClicked(int)));
 
     connect(this, SIGNAL(toShow()), this, SLOT(showResultsInPanel()));
+    stateShow->assignProperty(ui->pbStart, "text", "Return");
     stateShow->assignProperty(ui->frResult, "enabled", true);
-
+    stateShow->addTransition(ui->pbClear,SIGNAL(clicked(bool)),stateClear);
+    stateShow->addTransition(ui->pbStart,SIGNAL(clicked(bool)),stateView);
+    stateShow->assignProperty(ui->pbClear, "enabled", true);
 
     stateMachine->setInitialState(stateStartup);
     stateMachine->start();
@@ -205,7 +210,7 @@ void MainWindow::errorFunction(QString info){
 
 void MainWindow::clear(){
     ui->taCompare->clear();
-    projects.erase(projects.begin(),projects.end());
+    projects.clear();
     emit cleared();
 }
 
@@ -294,6 +299,7 @@ void MainWindow::compare(){
         l++;
     }
     ui->retranslateUi(this);
+    ui->pbStart->setText("Return");
 }
 
 
