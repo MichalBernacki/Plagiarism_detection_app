@@ -4,8 +4,8 @@
 #include "prepare.h"
 #include "levenshteindistance.h"
 #include "simplealg.h"
-#include "File.h"
-#include "Project.h"
+#include "file.h"
+#include "project.h"
 class Test : public QObject
 {
     Q_OBJECT
