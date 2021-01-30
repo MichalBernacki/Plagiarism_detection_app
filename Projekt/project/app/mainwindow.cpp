@@ -3,6 +3,7 @@
 #include "levenshteindistance.h"
 #include "simplealg.h"
 #include "prepare.h"
+#include "utils.h"
 #include <iostream>
 #include <QStateMachine>
 #include <QHistoryState>
@@ -321,17 +322,17 @@ void MainWindow::showResultsInPanel()
     ndial->setModal(true);
     ndial->exec();
 }
-void MainWindow::onTableClicked(int x, int y )
+void MainWindow::onTableClicked(int y, int x )
 {
     this->xParam = x;
     this->yParam = y;
+    ui->lwResults->clear();
 
-    std::string resultString;
-    for(auto& result: results.at(x*projects.size() + y)){   //I think x and y are swapped
-        resultString += result.first + ": ";
-        resultString += std::to_string(result.second * 100) + '\n';
+    for(auto& result: results.at(y*projects.size() + x)){
+        std::string resultString = result.first + ": ";
+        resultString += std::to_string(result.second * 100);
+        ui->lwResults->addItem(QString::fromStdString(resultString));
     }
-    ui->teResults->setText(resultString.c_str());
 }
 void MainWindow::onButtonClicked(int opt)
 {

@@ -5,7 +5,7 @@
 #include "nxndialog.h"
 #include <QButtonGroup>
 
-#include "Project.h"
+#include "project.h"
 #include <unordered_set>
 
 namespace Ui {
