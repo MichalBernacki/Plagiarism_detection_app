@@ -231,14 +231,14 @@ void MainWindow::compare(){
                 k++;
                 continue;
             }
-            auto p1 = project1.GetFiles();
-            auto p2 = project2.GetFiles();
-
-            float levenshteinRes = 0;
-            float simpleAlgRes = 0;
+            Result levenshteinRes {"Levenshtein"};
+            Result simpleAlgRes {"SimpleAlg"};
 
             float percent = 0;
             float num_of_cmp = 0;
+
+            auto p1 = project1.GetFiles();
+            auto p2 = project2.GetFiles();
             for(auto file1: p1){
                 for(auto file2: p2)
                 {
@@ -270,7 +270,12 @@ void MainWindow::compare(){
                         num_of_cmp++;
                         LevenshteinDistance l{};
                         float res = l.compare(s1,s2);
-                        levenshteinRes +=res;
+                        if(res > levenshteinRes.bestMatchValue){
+                            levenshteinRes.bestMatchValue = res;
+                            levenshteinRes.bestMatch1 = &file1;
+                            levenshteinRes.bestMatch2 = &file2;
+                        }
+                        levenshteinRes.value +=res;
                         percent+=res;
                     }
                     if(ui->cbBox2->isChecked())
@@ -278,16 +283,22 @@ void MainWindow::compare(){
                         num_of_cmp++;
                         SimpleAlg l{};
                         float res = l.compare(s1,s2);
-                        simpleAlgRes += res;
+                        if(res > simpleAlgRes.bestMatchValue){
+                            simpleAlgRes.bestMatchValue = res;
+                            simpleAlgRes.bestMatch1 = &file1;
+                            simpleAlgRes.bestMatch2 = &file2;
+                        }
+                        simpleAlgRes.value += res;
                         percent+=res;
                     }
                 }
             }
             percent/=num_of_cmp;
-            levenshteinRes /= p1.size()*p2.size();
-            simpleAlgRes /= p1.size()*p2.size();
-            if(ui->cbBox1->isChecked()) results.at(l*projects.size() + k).push_back({"Levenshtein", levenshteinRes});
-            if(ui->cbBox2->isChecked())results.at(l*projects.size() + k).push_back({"SimpleAlg", simpleAlgRes});
+
+            levenshteinRes.value /= p1.size()*p2.size();
+            simpleAlgRes.value /= p1.size()*p2.size();
+            if(ui->cbBox1->isChecked()) results.at(l*projects.size() + k).push_back(levenshteinRes);
+            if(ui->cbBox2->isChecked())results.at(l*projects.size() + k).push_back(simpleAlgRes);
 
             QTableWidgetItem *item = ui->taCompare->item(l,k);
             item= new QTableWidgetItem();
