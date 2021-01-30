@@ -321,13 +321,13 @@ void MainWindow::showResultsInPanel()
     ndial->setModal(true);
     ndial->exec();
 }
-void MainWindow::onTableClicked(int x, int y )
+void MainWindow::onTableClicked(int y, int x )
 {
     this->xParam = x;
     this->yParam = y;
 
     std::string resultString;
-    for(auto& result: results.at(x*projects.size() + y)){   //I think x and y are swapped
+    for(auto& result: results.at(y*projects.size() + x)){
         resultString += result.first + ": ";
         resultString += std::to_string(result.second * 100) + '\n';
     }
