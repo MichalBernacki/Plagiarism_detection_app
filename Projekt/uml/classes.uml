@@ -1,9 +1,17 @@
 @startuml
 
-    NotADirectory -- Project
-
     
-    claSS NotADirectory {
+    
+    namespace std{
+        class exception
+    }
+    
+    std.exception <|--- NotADirectory       
+    
+    Project ..> NotADirectory : use
+    Project ..> File : use
+    
+    class NotADirectory {
         + char* what()
     }
 
@@ -56,7 +64,8 @@
         + float compare(std::string s1, std::string s2)
     }
     
-    note left of Project : Also have:\nhash function\nexception for non directory file
-    note left of NotADirectory : extends std:exception
+    note bottom of Project : Have hash function
+    
+
 
 @enduml
