@@ -7,7 +7,7 @@
 class File
 {
 public:
-    File(std::filesystem::path path);
+    File(const std::filesystem::path& path);
 
     std::string m_Name;
     std::string m_Path;

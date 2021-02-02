@@ -48,13 +48,8 @@ private:
     Ui::MainWindow *ui;
     NxNDialog *ndial;
 
-    QString fileName;
     std::unordered_set<Project> projects;
     std::vector<std::vector<Result>> results;
-    std::string secondName;
-    std::string firstName;
-
-   // QButtonGroup* group;
 
     int xParam{};
     int yParam{};

@@ -1,10 +1,8 @@
 #include "simplealg.h"
-#include "stdio.h"
+#include <cstdio>
 SimpleAlg::SimpleAlg()
-{
-
-}
-float SimpleAlg::compare(std::string s1, std::string s2)
+= default;
+float SimpleAlg::compare(const std::string& s1, const std::string& s2)
 {
     std::istringstream iss1 (s1);
     std::istringstream iss2 (s2);
