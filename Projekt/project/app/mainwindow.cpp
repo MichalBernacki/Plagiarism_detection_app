@@ -321,7 +321,7 @@ void MainWindow::view()
 
 void MainWindow::showResultsInPanel()
 {
-    ndial = new NxNDialog(this, xParam, yParam, resultIndex, results[yParam*projects.size() + xParam][resultIndex]);
+    ndial = new NxNDialog(this, xParam, yParam,  results[yParam*projects.size() + xParam][resultIndex]);
     ndial->setModal(true);
     ndial->exec();
 }

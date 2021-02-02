@@ -32,9 +32,9 @@
   <widget class="QTextBrowser" name="teFile2">
    <property name="geometry">
     <rect>
-     <x>630</x>
+     <x>650</x>
      <y>150</y>
-     <width>491</width>
+     <width>511</width>
      <height>611</height>
     </rect>
    </property>
@@ -42,20 +42,20 @@
   <widget class="QTextBrowser" name="nFile1">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>100</y>
-     <width>511</width>
-     <height>41</height>
+     <x>40</x>
+     <y>90</y>
+     <width>491</width>
+     <height>51</height>
     </rect>
    </property>
   </widget>
   <widget class="QTextBrowser" name="nFile2">
    <property name="geometry">
     <rect>
-     <x>620</x>
-     <y>100</y>
+     <x>650</x>
+     <y>90</y>
      <width>511</width>
-     <height>41</height>
+     <height>51</height>
     </rect>
    </property>
   </widget>
