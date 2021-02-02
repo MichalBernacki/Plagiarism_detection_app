@@ -337,17 +337,6 @@ void MainWindow::onTableClicked(int y, int x )
         resultString += std::to_string(result.value * 100);
         ui->lwResults->addItem(QString::fromStdString(resultString));
     }
-
-    std::unordered_set<Project>::iterator it = projects.begin();
-    std::advance(it, x);
-    Project firstProj = *it;
-    firstName = firstProj.GetName();
-    std::unordered_set<Project>::iterator it2 = projects.begin();
-    std::advance(it2, y);
-    Project secProj = *it2;
-    secondName = secProj.GetName();
-
-
 }
 void MainWindow::onListElemClicked(QListWidgetItem *item)
 {
