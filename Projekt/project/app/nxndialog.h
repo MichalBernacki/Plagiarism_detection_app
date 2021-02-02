@@ -15,7 +15,7 @@ class NxNDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit NxNDialog(QWidget *parent, int x, int y, int opt, const Result& result);
+    explicit NxNDialog(QWidget *parent, int x, int y,  const Result& result);
     ~NxNDialog();
 
 private slots:
@@ -28,7 +28,6 @@ private:
 
     int xParam;
     int yParam;
-    int opt;
     Result result;
 
 };
