@@ -50,6 +50,7 @@
     Startup: <b>pbOpen</b> enabled <b>true</b>
     Startup: <b>pbStart</b> enabled <b>false</b>
     Startup: <b>pbClear</b> enabled <b>false</b>
+    Startup: <b>pbFileM1</b> enabled <b>false</b>
     Startup: <b>taCompare</b> enabled <b>false</b>
     Startup: <b>cbBox1</b> enabled <b>false</b>
     Startup: <b>cbBox2</b> enabled <b>false</b>
@@ -75,7 +76,6 @@
     
     
     Compare: <b>taCompare</b> enabled <b>true</b>
-    Compare: <b>state</b> entered() -> <b>this</b> compare()
     Compare: <b>pbOpen</b> enabled <b>false</b>
     Compare: <b>pbStart</b> enabled <b>true</b>
     Compare: <b>pbStart</b> text <b>"Return"</b>
@@ -85,6 +85,9 @@
     Compare: <b>cbBox3</b> enabled <b>false</b>
     Compare: <b>cbBox4</b> enabled <b>false</b>
     Compare: <b>cbBox5</b> enabled <b>false</b>
+    Compare: <b>state</b> entered() -> <b>this</b> compare()
+    Compare: <b>taCompare</b> cellClicked(int, int) -> <b>this</b> onTableClicked(int, int)
+     
     Choose: <b>state</b> entered() -> <b>this</b> checkChoose()
 
     Error: <b>pbOpen</b> enabled <b>true</b>
@@ -100,7 +103,9 @@
     Clear: <b>state</b> entered() -> <b>this</b> clear()
     
     Show: <b>frResult</b> enabled <b>true</b>
-    Show: <b>state</b> entered() -> <b>this</b> showResult()
+    Show: <b>lwResults</b> itemClicked(QListWidgetItem*) -> <b>this</b> onListElemClicked(QListWidgetItem*)
+    Show: <b>taCompare</b> cellClicked(int, int) -> <b>this</b> onTableClicked(int, int)
+    Show: <b>pbFileM1</b> clicked() -> <b>this</b> showResultsInPanel()
        
 
 @enduml
