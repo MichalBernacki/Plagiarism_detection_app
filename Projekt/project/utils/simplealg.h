@@ -7,7 +7,7 @@ class SimpleAlg
 {
 public:
     SimpleAlg();
-    float compare(std::string s1, std::string s2);
+    float compare(const std::string& s1, const std::string& s2);
 };
 
 #endif // SIMPLEALG_H

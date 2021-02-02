@@ -2,7 +2,7 @@
 
 #include <fstream>
 
-File::File(std::filesystem::path path):  m_Name{}, m_Path{path},m_OriginalContent{}{
+File::File(const std::filesystem::path& path): m_Path{path}{
 
     std::ifstream fileStream(path, std::ios::in | std::ios::binary);
     const auto sz = std::filesystem::file_size(path);

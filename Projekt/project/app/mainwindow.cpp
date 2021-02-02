@@ -190,7 +190,6 @@ void MainWindow::errorFunction(QString info){
     QMessageBox::information( this, "Error", errorMsg, QMessageBox::Ok );
     std::cerr << errorMsg.toStdString();
     std::cerr << "\n";
-
 }
 
 
