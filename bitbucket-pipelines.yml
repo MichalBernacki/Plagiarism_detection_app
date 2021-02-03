@@ -9,8 +9,7 @@ pipelines:
           -     qmake ../project
           -     make -j4 
           -     pushd tests
-          -       LD_LIBRARY_PATH=../utils ./tests -o test_detail.xml,xunitxml
-          -       cat test_detail.xml
+          -       LD_LIBRARY_PATH=../utils ./tests
           -     popd
           -   popd
           - popd
