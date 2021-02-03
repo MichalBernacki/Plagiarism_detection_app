@@ -8,6 +8,7 @@ pipelines:
           -   mkdir build-project && pushd build-project
           -     qmake ../project
           -     make -j4 
+          -     LD_LIBRARY_PATH=utils ./tests -o test_detail.xml,xunitxml
           -   popd
           - popd
           - .ci/collect_reports.sh
