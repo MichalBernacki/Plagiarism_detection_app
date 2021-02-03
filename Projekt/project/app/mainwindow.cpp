@@ -213,7 +213,12 @@ void MainWindow::compare(){
         {
             if(k==l)
             {
-                k++;
+                ++k;
+                continue;
+            }
+            if(k < l){  //dont calculate duplicates, NxN requires only ((N-1)*N/2) calculations
+                results.at(l*projects.size() + k) = results.at(k*projects.size() + l);
+                ++k;
                 continue;
             }
             Result levenshteinRes {"Levenshtein"};
@@ -285,11 +290,15 @@ void MainWindow::compare(){
             if(ui->cbBox1->isChecked()) results.at(l*projects.size() + k).push_back(levenshteinRes);
             if(ui->cbBox2->isChecked()) results.at(l*projects.size() + k).push_back(simpleAlgRes);
 
-            QTableWidgetItem *item = ui->taCompare->item(l,k);
-            item= new QTableWidgetItem();
-            ui->taCompare->setItem(l,k,item);
-            item->setText(QString::number(percent*100)+"%");
-            item->setBackground(QColor(255*percent,255-255*percent,0,255));
+            QTableWidgetItem *item1= new QTableWidgetItem();
+            ui->taCompare->setItem(l,k,item1);
+            item1->setText(QString::number(percent*100)+"%");
+            item1->setBackground(QColor(255*percent,255-255*percent,0,255));
+
+            QTableWidgetItem *item2= new QTableWidgetItem();
+            ui->taCompare->setItem(k,l,item2);
+            item2->setText(QString::number(percent*100)+"%");
+            item2->setBackground(QColor(255*percent,255-255*percent,0,255));
             k++;
         }
         k=0;
