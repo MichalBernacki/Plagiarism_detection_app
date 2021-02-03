@@ -140,10 +140,10 @@ private slots:
     }
     void test_ProjectGetFilesTwo()
     {
-        Project p{"../../test4"};
+        Project p{"../../test1"};
         std::vector<File> files=p.GetFiles();
         File f=files.at(0);
-        QVERIFY(f.m_Name=="utils.cpp");
+        QVERIFY(f.m_Name=="test");
     }
 };
 
