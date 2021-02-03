@@ -330,7 +330,7 @@ void MainWindow::onTableClicked(int y, int x )
     this->xParam = x;
     this->yParam = y;
     ui->lwResults->clear();
-
+    ui->pbFileM1->setEnabled(false);
     for(auto& result: results.at(y*projects.size() + x)){
         std::string resultString = result.algorithmName + ": ";
         resultString += std::to_string(result.value * 100);
