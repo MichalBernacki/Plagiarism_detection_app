@@ -349,5 +349,5 @@ void MainWindow::onTableClicked(int y, int x )
 void MainWindow::onListElemClicked(QListWidgetItem *item)
 {
     this->resultIndex =  ui->lwResults->selectionModel()->currentIndex().row();
-    ui->pbFileM1->setEnabled("true");
+    ui->pbFileM1->setEnabled(true);
 }
